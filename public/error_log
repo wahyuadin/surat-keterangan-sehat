@@ -1,0 +1,200 @@
+[25-Nov-2025 03:04:43 Asia/Jakarta] PHP Warning:  require(/home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/autoload.php): Failed to open stream: No such file or directory in /home/nayh3395/public_html/surat.nayakaerahusada.com/index.php on line 34
+[25-Nov-2025 03:04:43 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/autoload.php' (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nayh3395/public_html/surat.nayakaerahusada.com/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/index.php on line 34
+[04-Dec-2025 09:52:17 Asia/Jakarta] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/symfony/var-dumper/Dumper/AbstractDumper.php on line 180
+[16-Jan-2026 18:24:46 Asia/Jakarta] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 76581048 bytes) in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 63
+[27-Jan-2026 22:49:04 Asia/Jakarta] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 92629912 bytes) in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 63
+[13-Feb-2026 12:57:18 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:19 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:21 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:22 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:22 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:22 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:29 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:35 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:37 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:38 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:38 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:46 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:47 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:47 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:47 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:49 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:56 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:57:57 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:58:25 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:58:26 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:58:27 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:58:27 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:58:27 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318
+[13-Feb-2026 12:58:27 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined method ComposerAutoloaderInite3bee9104764fdaa86fbe9c4578dfbe1::log() in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:318
+Stack trace:
+#0 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(278): Illuminate\Foundation\Exceptions\Handler->reportThrowable()
+#1 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(183): Illuminate\Foundation\Exceptions\Handler->report()
+#2 /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#4 {main}
+  thrown in /home/nayh3395/public_html/surat.nayakaerahusada.com/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 318

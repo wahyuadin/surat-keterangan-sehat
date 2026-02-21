@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Nayaka Era Husada - Situs dalam Perbaikan</title>
+    <meta name="description" content="Situs resmi Nayaka Era Husada sedang dalam perbaikan untuk meningkatkan layanan kami. Kami akan segera kembali online. Hubungi kami untuk informasi lebih lanjut.">
+    <meta name="keywords" content="Nayaka Era Husada, maintenance, perbaikan, situs, kesehatan, alat kesehatan">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Tags for Social Media Sharing -->
+    <meta property="og:title" content="Nayaka Era Husada - Situs dalam Perbaikan">
+    <meta property="og:description" content="Situs kami sedang dalam perbaikan untuk pengalaman yang lebih baik. Kami akan segera kembali.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nayakaerahusada.com">
+    <meta property="og:site_name" content="Nayaka Era Husada">
+    
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Memuat Font Inter dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Mengatur font utama ke Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Mencegah scrollbar karena animasi di luar viewport */
+        }
+
+        /* Konfigurasi untuk animasi bentuk yang melayang */
+        .shape {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            animation: float 25s linear infinite;
+            bottom: -150px; /* Mulai dari bawah layar */
+            border-radius: 0.5rem; /* Sudut membulat */
+            z-index: 0; /* Di belakang konten utama */
+        }
+
+        /* Variasi ukuran dan warna untuk setiap bentuk */
+        .shape:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; background-color: rgba(34, 197, 94, 0.3); } /* Hijau */
+        .shape:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; background-color: rgba(59, 130, 246, 0.3); } /* Biru */
+        .shape:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; background-color: rgba(249, 115, 22, 0.3); } /* Oranye */
+        .shape:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; background-color: rgba(34, 197, 94, 0.3); } /* Hijau */
+        .shape:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; background-color: rgba(249, 115, 22, 0.3); } /* Oranye */
+        .shape:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; background-color: rgba(59, 130, 246, 0.3); } /* Biru */
+        .shape:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; background-color: rgba(34, 197, 94, 0.3); } /* Hijau */
+        .shape:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; background-color: rgba(249, 115, 22, 0.3); } /* Oranye */
+        .shape:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; background-color: rgba(59, 130, 246, 0.3); } /* Biru */
+        .shape:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; background-color: rgba(34, 197, 94, 0.3); } /* Hijau */
+
+        /* Animasi Keyframes untuk efek melayang dan berputar */
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 0;
+            }
+            100% {
+                transform: translateY(-120vh) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
+        }
+    </style>
+    
+    <!-- Structured Data (Schema.org) for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Website Maintenance",
+      "provider": {
+        "@type": "Organization",
+        "name": "Nayaka Era Husada"
+      },
+      "name": "Situs Dalam Perbaikan",
+      "description": "Situs resmi Nayaka Era Husada sedang tidak dapat diakses untuk sementara waktu karena adanya perbaikan dan peningkatan sistem."
+    }
+    </script>
+</head>
+<body class="bg-slate-900 text-white">
+
+    <!-- Kontainer untuk animasi bentuk di latar belakang -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+        <div class="area">
+            <ul class="shapes">
+                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Konten utama halaman -->
+    <main class="relative min-h-screen flex flex-col items-center justify-center text-center p-8 z-10">
+        <div class="max-w-2xl w-full">
+            <!-- Ikon Perkakas dengan animasi berputar pelan -->
+            <svg class="mx-auto h-20 w-20 text-blue-400 animate-spin" style="animation-duration: 10s;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            
+            <!-- Judul Utama -->
+            <h1 class="mt-8 text-4xl md:text-6xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-blue-400 to-orange-400">
+                Website Under Maintenance!
+            </h1>
+            
+            <!-- Deskripsi -->
+            <p class="mt-4 text-lg md:text-xl text-slate-300">
+                Kepada Pelanggan <strong>Nayaka Era Husada</strong>, mohon maaf atas ketidaknyamanannya. Kami sedang melakukan perbaikan dan peningkatan pada situs. Kami akan online sesegera mungkin!
+            </p>
+            
+            <!-- Kontak -->
+            <div class="mt-10 bg-slate-800/50 rounded-lg p-6 max-w-md mx-auto">
+                <p class="text-slate-300 mb-4">
+                    Untuk informasi lebih lanjut, silakan hubungi kami melalui email atau kunjungi tautan berikut:
+                </p>
+                <div class="space-y-3">
+                    <a href="mailto:pusat@nayakaerahusada.com" class="flex items-center justify-center group text-orange-400 hover:text-orange-300 transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                        </svg>
+                        <span>pusat@nayakaerahusada.com</span>
+                    </a>
+                    <a href="https://nayakaerahusada.com" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center group text-blue-400 hover:text-blue-300 transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                           <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0m-4.242 0a2 2 0 012.828 0l3 3a2 2 0 01-2.828 2.828l-3-3a2 2 0 010-2.828zM10 16a6 6 0 100-12 6 6 0 000 12z" clip-rule="evenodd" />
+                        </svg>
+                        <span>www.nayakaerahusada.com</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

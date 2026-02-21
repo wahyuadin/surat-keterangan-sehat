@@ -1,0 +1,29 @@
+services:
+  frankenphp:
+    image: dunglas/frankenphp
+    container_name: frankenphp
+    ports:
+      - "8080:80" # Akses dari http://localhost:8080
+    volumes:
+      - ./:/app
+    working_dir: /app/public
+    environment:
+      APP_ENV: local
+    depends_on:
+      - composer
+    networks:
+      - laravelnet
+
+  composer:
+    image: composer:latest
+    container_name: composer
+    working_dir: /app
+    volumes:
+      - ./:/app
+    entrypoint: ['composer']
+    networks:
+      - laravelnet
+
+networks:
+  laravelnet:
+    driver: bridge

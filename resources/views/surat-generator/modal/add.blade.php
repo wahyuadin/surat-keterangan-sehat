@@ -1,0 +1,310 @@
+<div class="modal fade" id="addsuratGenerator" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addsuratGeneratorLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <form action="{{ route('surat.store') }}" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addsuratGeneratorLabel">Buat Surat</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="patient_id" class="form-label">Nama Pasien <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <select name="patient_id" id="patient_id" class="form-select select2" required>
+                                    <option selected disabled>== Pilih Salah Satu ==</option>
+                                    @if(Auth::user()->role == '2')
+                                    @php
+                                    $patients = \App\Models\Patient::with('clinic')
+                                    ->whereNotNull('clinic_id')
+                                    ->whereNotNull('customer_id')
+                                    ->latest()->get();
+                                    @endphp
+                                    @else
+                                    @php
+                                    $patients = \App\Models\Patient::with('clinic')
+                                    ->where('clinic_id', Auth::user()->clinic_id)
+                                    ->whereNotNull('clinic_id')
+                                    ->whereNotNull('customer_id')
+                                    ->latest()
+                                    ->get();
+                                    @endphp
+                                    @endif
+                                    @foreach ($patients as $patientItem)
+                                    <option value="{{ $patientItem->id }}">[{{ Str::upper($patientItem->no_ktp ?? '-') }}] {{ Str::upper($patientItem->nama_pasien ?? '-')  }}</option>
+                                    @endforeach
+                                </select>
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addModalPatient"><i class="fas fa-plus"></i></button>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="paramedis" class="form-label">Paramedis <span class="text-danger">*</span></label>
+                            <select name="paramedis_id" class="form-select select2" required>
+                                <option selected disabled>== Pilih Salah Satu ==</option>
+                                @if(Auth::user()->role == '2')
+                                @php
+                                $paramedis = \App\Models\Paramedis::all();
+                                @endphp
+                                @else
+                                @php
+                                $paramedis = \App\Models\Paramedis::with('clinic')->where('clinic_id', Auth::user()->clinic_id)->get();
+                                @endphp
+                                @endif
+                                @foreach ($paramedis as $paramedItem)
+                                <option value="{{ $paramedItem->id }}">{{ Str::upper($paramedItem->nama ?? '-')  }} - [{{ Str::upper($paramedItem->clinic->nama_klinik ?? '-') }}]</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" id="agentRow">
+                        <div class="col-md-12 mb-3" id="isAgentCol">
+                            <label for="is_agent" class="form-label">Is Agent</label>
+                            <div class="input-group">
+                                <select id="is_agent" class="form-select" required>
+                                    <option selected disabled>== Pilih Salah Satu ==</option>
+                                    <option value="1">Ya</option>
+                                    <option value="0">Tidak</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3" id="agentCol" style="display:none">
+                            <label for="agent_id" class="form-label">Agent</label>
+                            <div class="input-group">
+                                <select name="agent_id" id="agent_id" class="form-select select2">
+                                    <option selected disabled>== Pilih Salah Satu ==</option>
+                                    @if (Auth::user()->role == '1')
+                                    @php
+                                    $agent = \App\Models\Agent::where('clinic_id', Auth::user()->clinic_id)->with('customer', 'clinic')->latest()->get();
+                                    @endphp
+                                    @else
+                                    @php
+                                    $agent = \App\Models\Agent::with('customer')->latest()->get();
+                                    @endphp
+                                    @endif
+                                    @foreach ($agent as $agentItem)
+                                    <option value="{{ $agentItem->id }}">{{ Str::upper($agentItem->nama_agent ?? '-')  }} - [{{ Str::upper($agentItem->customer->nama_perusahaan ?? '-') }}]</option>
+                                    @endforeach
+                                </select>
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addAgent"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="no_transaksi" class="form-label">No Transaksi</label>
+                            <div class="input-group">
+                                <input type="text" id="no_transaksi" name="no_transaksi" class="form-control" readonly>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4 mb-3">
+                            <label for="tgl_transaksi" class="form-label">Tanggal Transaksi</label>
+                            <input type="date" name="tgl_transaksi" class="form-control" value="{{ now()->format('Y-m-d') }}" readonly required>
+
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="suhu" class="form-label">Suhu</label>
+                            <div class="input-group">
+                                <input type="text" name="suhu" class="form-control" placeholder="Masukkan Suhu" value="{{ old('suhu') }}">
+                                <span class="input-group-text">C</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="tinggi_badan" class="form-label">Tinggi Badan</label>
+                            <div class="input-group">
+                                <input type="number" name="tinggi_badan" class="form-control" placeholder="Masukkan Tinggi Badan" value="{{ old('tinggi_badan') }}">
+                                <span class="input-group-text">cm</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="berat_badan" class="form-label">Berat Badan</label>
+                            <div class="input-group">
+                                <input type="number" name="berat_badan" class="form-control" placeholder="Masukkan Berat Badan" value="{{ old('berat_badan') }}">
+                                <span class="input-group-text">kg</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="tensi" class="form-label">Tensi</label>
+                            <div class="input-group">
+                                <input type="number" id="tensi_sistolik" class="form-control" placeholder="Sistolik" value="{{ old('tensi_sistolik') }}" required>
+                                <span class="input-group-text">/</span>
+                                <input type="number" id="tensi_diastolik" class="form-control" placeholder="Diastolik" value="{{ old('tensi_diastolik') }}" required>
+                                <span class="input-group-text">mmHg</span>
+                            </div>
+
+                            <!-- hasil gabungan -->
+                            <input type="text" name="tensi" id="sistolikdiastolik" class="form-control mt-2" value="{{ old('tensi') }}" hidden>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="saturnasi" class="form-label">Saturasi</label>
+                            <input type="number" name="saturnasi" class="form-control" placeholder="Masukkan Saturnasi" value="{{ old('saturnasi') }}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="denyutnadi" class="form-label">Denyut Nadi</label>
+                            <input type="number" name="denyutnadi" class="form-control" placeholder="Masukkan Denyut Nadi" value="{{ old('denyutnadi') }}">
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label class="form-check-label" for="buta_warna">
+                                Buta Warna
+                            </label>
+                            <select name="buta_warna" class="form-select">
+                                <option selected disabled>== Pilih Salah Satu ==</option>
+                                <option value="1">Ya</option>
+                                <option value="0">Tidak</option>
+                                <option value="2">-</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label class="form-check-label" for="pendengaran">
+                                Pendengaran
+                            </label>
+                            <select name="pendengaran" class="form-select">
+                                <option selected disabled>== Pilih Salah Satu ==</option>
+                                <option value="1">Respon</option>
+                                <option value="0">Tidak Respon</option>
+                                <option value="2">-</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label class="form-check-label" for="status_kesehatan">
+                                Status Kesehatan
+                            </label>
+                            <select name="status_kesehatan" class="form-select">
+                                <option selected disabled>== Pilih Salah Satu ==</option>
+                                <option value="1">Sehat</option>
+                                <option value="0">Tidak Sehat</option>
+                                <option value="2">-</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label class="form-check-label" for="gol_darah">
+                                Golongan Darah
+                            </label>
+                            <select name="gol_darah" class="form-select">
+                                <option selected disabled>== Pilih Salah Satu ==</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="O">O</option>
+                                <option value="AB">AB</option>
+                                <option value="-">-</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="keperluan" class="form-label">Keperluan</label>
+                        <textarea name="keperluan" id="keperluan" class="form-control" rows="3" placeholder="Masukkan keperluan (opsional)">{{ old('keperluan') }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="keperluan" class="form-label">Status Pembayaran</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="is_bayar" id="is_bayar_0" value="0" checked>
+                            <label class="form-check-label" for="is_bayar_0">
+                                Belum Lunas (Kolektif)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="is_bayar" id="is_bayar_1" value="1">
+                            <label class="form-check-label" for="is_bayar_1">
+                                Lunas (Bayar di tempat)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Foto</label> <br>
+                        <div class="btn-group mb-2">
+                            <button type="button" id="btnUseCamera" class="btn btn-outline-primary active">Kamera</button>
+                            <button type="button" id="btnUseUpload" class="btn btn-outline-secondary">Upload</button>
+                        </div>
+
+                        <!-- Mode Kamera -->
+                        <div id="cameraSection">
+                            <video id="video" autoplay style="width:300px; height:400px; object-fit:cover; border:1px solid #000;"></video><br>
+                            <button type="button" id="snap" class="btn btn-primary mt-2">Ambil Foto</button>
+                            <img id="preview" src="#" alt="Preview Foto" style="width:300px; height:400px; object-fit:cover; border:1px solid #000; margin-top:10px; display:none;">
+                            <button type="button" id="retake" class="btn btn-danger mt-2" style="display:none;">Ambil Ulang</button>
+                        </div>
+
+                        <!-- Mode Upload -->
+                        <div id="uploadSection" style="display:none;">
+                            <input type="file" id="uploadFoto" accept="image/*" class="form-control">
+                            <img id="previewUpload" src="#" alt="Preview Upload" style="width:300px; height:400px; object-fit:cover; border:1px solid #000; margin-top:10px; display:none;">
+                        </div>
+
+                        <input type="hidden" name="foto" id="gambarInput">
+                        </div>
+                    </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" id="btnSimpan" class="btn btn-primary" disabled>Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+<script>
+    const sistolikInput = document.getElementById('tensi_sistolik');
+    const diastolikInput = document.getElementById('tensi_diastolik');
+    const tensiInput = document.getElementById('sistolikdiastolik');
+    const isAgentSelect = document.getElementById('is_agent');
+    const isAgentCol = document.getElementById('isAgentCol');
+    const agentCol = document.getElementById('agentCol');
+
+    function updateTensi() {
+        const sistolik = sistolikInput.value;
+        const diastolik = diastolikInput.value;
+
+        if (sistolik && diastolik) {
+            tensiInput.value = `${sistolik}/${diastolik}`;
+        } else {
+            tensiInput.value = '';
+        }
+    }
+
+    function toggleAgent() {
+        let val = $('#is_agent').val();
+        if (val === "1") {
+            // Jika YA
+            $('#isAgentCol').removeClass('col-md-12').addClass('col-md-6');
+            $('#agentCol').show();
+        } else if (val === "0") {
+            // Jika TIDAK
+            $('#isAgentCol').removeClass('col-md-6').addClass('col-md-12');
+            $('#agentCol').hide();
+            $('#agent_id').val(null).trigger('change'); // reset select2 agent
+        }
+    }
+
+    sistolikInput.addEventListener('input', updateTensi);
+    diastolikInput.addEventListener('input', updateTensi);
+    // panggil pas ganti select
+    $('#is_agent').on('change', function() {
+        toggleAgent();
+    });
+
+</script>
+@endpush
