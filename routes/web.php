@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('server-site')->group(function () {
         Route::get('surat', [SuratGeneratorController::class, 'resultData'])->name('surat.data');
         Route::get('pasien', [PasienController::class, 'datatable'])->name('patient.datatable');
+        Route::get('audit', [Controller::class, 'auditData'])->name('audit.datatable');
     });
 
 

@@ -5,113 +5,62 @@
         <span class="visually-hidden">Loading...</span>
     </div>
 </div>
-<!-- Start of Selection -->
+
 <div class="container mt-4">
     <div class="card w-100">
         <div class="card-body">
             <div class="row">
-                <div class="col-12 col-md-10">
-                    <h4 class="card-title">Data Audit</h4>
+                <div class="col-6 col-md-8">
+                    <h5 class="card-title">Data Daftar Pasient</h5>
                 </div>
             </div>
             <div class="table-responsive mt-3">
-                <table id="example" class="table table-striped table-bordered w-100 mt-3">
-                    @include('alert')
+                <div class="mt-3 mb-4">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addpatient">
+                        <i class='bx bx-plus'></i>
+                    </button>
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class='bx bx-export'></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="printPDF()">Print PDF</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="exportExcel()">Export
+                                Excel</a>
+                        </li>
+                    </ul>
+                </div>
+                <table id="patientTable" class="table table-striped table-bordered w-100 mt-3">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>User Type</th>
-                            <th>Nama User</th>
-                            <th>event</th>
-                            <th>auditable type</th>
-                            <th>auditable id</th>
-                            <th style="min-width: 500px;">iNPUTAN LAMA</th>
-                            <th style="min-width: 500px;">iNPUTAN BARU</th>
-                            <th>Link</th>
-                            <th>IP Address</th>
-                            <th style="min-width: 200px;"">Device</th>
-                            <th>tag</th>
-                            <th>Tgl Buat</th>
-                            <th>Tgl update</th>
+                            <th>User ID</th>
+                            <th>Model Audit</th>
+                            <th>Id Audit</th>
+                            <th>Inputan Sebelumnya</th>
+                            <th>Inputan Setelah</th>
+                            <th>URL</th>
+                            <th>Ip Address</th>
+                            <th>Device</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($data as $index => $dataItem)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $dataItem->user_type ?? '-' }}</td>
-                            <td>
-                                @php
-                                    $user = \App\Models\User::where('id', $dataItem->user_id)->first();
-                                @endphp
-                                {{ $user->nama ?? '-' }}
-                            </td>
-                            <td>
-                                {{ ucwords($dataItem->event ?? '-') }}
-                            </td>
-                            <td>
-                                {{ $dataItem->auditable_type ?? '-' }}
-                            </td>
-                            <td>
-                                {{ $dataItem->auditable_id ?? '-' }}
-                            </td>
-                            <td>
-                                @if($dataItem->old_values)
-                                @php $old = json_decode($dataItem->old_values, true); @endphp
-                                <ul class=" list-unstyled mb-0">
-                                @foreach($old as $key => $value)
-                                <li><strong>{{ ucfirst($key) }}:</strong> {{ $value ?? '-' }}</li>
-                                @endforeach
-                                </ul>
-                                @else
-                                -
-                                @endif
-                                </td>
-                            <td>
-                                @if($dataItem->new_values)
-                                @php $new = json_decode($dataItem->new_values, true); @endphp
-                                <ul class="list-unstyled mb-0">
-                                    @foreach($new as $key => $value)
-                                    <li><strong>{{ ucfirst($key) }}:</strong> {{ $value ?? '-' }}</li>
-                                    @endforeach
-                                </ul>
-                                @else
-                                -
-                                @endif
-                            </td>
-
-                            <td>
-                                {{ $dataItem->url ?? '-' }}
-                            </td>
-                            <td>
-                                {{ $dataItem->ip_address ?? '-' }}
-                            </td>
-                            <td>
-                                {{ $dataItem->user_agent ?? '-' }}
-                            </td>
-                            <td>
-                                {{ $dataItem->tags ?? null }}
-                            </td>
-                            <td>
-                                {{ $dataItem->created_at ?? null }}
-                            </td>
-                            <td>
-                                {{ $dataItem->updated_at ?? null }}
-                            </td>
-                        </tr>
-                        @endforeach
-                        </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
+@endsection
 @push('style')
 {{-- datatable --}}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.6/css/dataTables.bootstrap5.css">
 @endpush
-
 @push('scripts')
+
 {{-- Moment.js for date handling --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 {{-- DataTables JS --}}
@@ -127,11 +76,60 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 
 <script>
-    new DataTable('#example', {
-        processing: true
-        , serverSide: false
-        , lengthMenu: [1, 3, 5, 10, 25, 50, 100]
-        , pageLength: 100
+    var table = $('#patientTable').DataTable({
+        processing: true, // ← munculkan animasi loading
+        serverSide: true
+        , ajax: "{{ route('audit.datatable') }}"
+        , order: []
+        , columns: [{
+                data: 'DT_RowIndex'
+                , name: 'DT_RowIndex'
+                , orderable: false
+                , searchable: false
+            }
+            , {
+                data: 'user_name'
+                , name: 'users.nama'
+            }
+            , {
+                data: 'auditable_id'
+                , name: 'auditable_id'
+            }
+            , {
+                data: 'auditable_type'
+                , name: 'auditable_type'
+            }
+            , {
+                data: 'old_values_formatted'
+                , orderable: false
+                , searchable: false
+            }
+            , {
+                data: 'new_values_formatted'
+                , orderable: false
+                , searchable: false
+            }
+            , {
+                data: 'url'
+                , name: 'url'
+            }
+            , {
+                data: 'ip_address'
+                , name: 'ip_address'
+            }
+            , {
+                data: 'user_agent'
+                , name: 'user_agent'
+            }
+            , {
+                data: 'created_at'
+                , name: 'created_at'
+            }
+            , {
+                data: 'updated_at'
+                , name: 'updated_at'
+            }
+        , ]
     });
 
     $('.select2').each(function() {
@@ -143,6 +141,78 @@
         });
     });
 
+
+    // OPEN EDIT MODAL
+    $(document).on("click", ".editBtn", function() {
+        let id = $(this).data('id');
+
+        $.get("/patient/" + id, function(res) {
+            $("#edit_id").val(res.id);
+            $("#nama_patient").val(res.nama_pasien);
+            $("#no_ktp").val(res.no_ktp);
+            $("#pekerjaan").val(res.pekerjaan);
+            $("#tempat_lahir").val(res.tempat_lahir);
+            $("#tgl_lahir").val(res.tgl_lahir);
+            $("#telp").val(res.telp);
+            $("#alamat").val(res.alamat);
+            $("#edit_customer").val(res.customer_id).trigger("change");
+            $("#edit_clinic").val(res.clinic_id).trigger("change");
+            $("#edit_jenis_kelamin").val(res.jenis_kelamin).trigger("change");
+            $("#modalEdit").modal("show");
+        });
+    });
+
+    // SUBMIT EDIT
+    $("#formEdit").submit(function(e) {
+        e.preventDefault();
+
+        let id = $("#edit_id").val();
+
+        $.ajax({
+            url: "{{ route('patient.update', ':id') }}".replace(':id', id)
+            , type: "POST", // tetap POST
+            data: $(this).serialize() + "&_method=PUT"
+            , headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            }
+            , success: function(res) {
+                location.reload();
+            }
+            , error: function(err) {
+                console.log(err);
+            }
+        });
+        location.reload();
+    });
+
+
+    // OPEN DELETE MODAL
+    $(document).on("click", ".deleteBtn", function() {
+        $("#delete_id").val($(this).data('id'));
+        $("#modalDelete").modal("show");
+    });
+
+    // CONFIRM DELETE
+    $("#btnDeleteConfirm").click(function() {
+        let id = $("#delete_id").val();
+
+        $.ajax({
+            url: "{{ route('patient.destroy', ':id') }}".replace(':id', id)
+            , type: "POST"
+            , data: {
+                _method: "DELETE"
+                , _token: $('meta[name="csrf-token"]').attr("content")
+            }
+            , success: function(res) {
+                location.reload();
+            }
+            , error: function(err) {
+                console.log(err);
+            }
+        });
+        location.reload();
+    });
+
     function ucwordsJS(str) {
         return str
             .replace(/_/g, ' ') // ganti underscore jadi spasi
@@ -152,6 +222,110 @@
             });
     }
 
+    function printPDF() {
+        document.getElementById('loading-overlay').classList.remove('d-none');
+
+        const {
+            jsPDF
+        } = window.jspdf;
+        let doc = new jsPDF();
+
+        let title = "DATA DAFTAR KUNJUNGAN PT NAYAKA ERA HUSADA";
+        let pageWidth = doc.internal.pageSize.width;
+        let titleWidth = doc.getTextWidth(title);
+        doc.text(title, (pageWidth - titleWidth) / 2, 10);
+
+        // Ambil header
+        let headers = [];
+        $('#example thead th').each(function(index) {
+            if (index < 8) { // Hanya ambil kolom yang relevan
+                headers.push($(this).text().trim());
+            }
+        });
+
+        // Ambil data dari tabel DOM
+        let data = [];
+        $('#example tbody tr:visible').each(function() {
+            let rowData = [];
+            $(this).find('td').each(function(index) {
+                if (index < 8) { // Ambil hanya kolom yang relevan
+                    let text = $(this).text().trim();
+                    rowData.push(ucwordsJS(text));
+
+                }
+            });
+            data.push(rowData);
+        });
+
+        // Buat tabel PDF
+        doc.autoTable({
+            head: [headers]
+            , body: data
+            , startY: 20
+            , theme: "striped"
+            , styles: {
+                fontSize: 8
+                , textColor: [0, 0, 0]
+            }
+            , headStyles: {
+                fillColor: [192, 192, 192]
+                , textColor: [0, 0, 0]
+            }
+        , });
+
+        doc.save("Dafta_Daftar_Kunjungan.pdf");
+        document.getElementById('loading-overlay').classList.add('d-none');
+    }
+
+    function exportExcel() {
+        document.getElementById('loading-overlay').classList.remove('d-none');
+
+        // Ambil header
+        let headers = [];
+        $('#example thead th').each(function(index) {
+            if (index < 8) {
+                headers.push($(this).text().trim());
+            }
+        });
+
+        // Ambil data dari DOM
+        let data = [];
+        $('#example tbody tr:visible').each(function() {
+            let rowData = [];
+            $(this).find('td').each(function(index) {
+                if (index < 8) {
+                    let text = $(this).text().trim();
+                    rowData.push(ucwordsJS(text));
+                }
+            });
+            data.push(rowData);
+        });
+
+        let ws_data = [headers, ...data];
+        let ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+        // Hitung lebar kolom
+        let colWidths = ws_data[0].map((_, colIndex) => {
+            let maxWidth = 10;
+            ws_data.forEach(row => {
+                let cell = row[colIndex];
+                if (cell && cell.length > maxWidth) {
+                    maxWidth = cell.length;
+                }
+            });
+            return {
+                wch: maxWidth + 2
+            };
+        });
+        ws['!cols'] = colWidths;
+
+        let wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Daftar Kunjungan");
+
+        XLSX.writeFile(wb, "Daftar_Kunjungan.xlsx");
+        document.getElementById('loading-overlay').classList.add('d-none');
+    }
+
 </script>
+
 @endpush
-@endsection

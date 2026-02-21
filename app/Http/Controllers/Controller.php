@@ -34,9 +34,29 @@ class Controller extends BaseController
 
     public function auditable()
     {
-        return view('audit.index', [
-            'data' => DB::table('audits')->latest()->get()
-        ]);
+        return view('audit.index');
+    }
+
+    public function auditData()
+    {
+        $data = DB::table('audits')
+            ->leftJoin('users', 'audits.user_id', '=', 'users.id')
+            ->select('audits.*', 'users.nama as user_name')
+            ->latest();
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+
+            ->addColumn('old_values_formatted', function ($row) {
+                return $this->formatJsonRecursive($row->old_values);
+            })
+
+            ->addColumn('new_values_formatted', function ($row) {
+                return $this->formatJsonRecursive($row->new_values);
+            })
+
+            ->rawColumns(['old_values_formatted', 'new_values_formatted'])
+            ->make(true);
     }
 
     public function serverSiteHarian(Request $request)
@@ -196,5 +216,64 @@ class Controller extends BaseController
         return response()->json([
             'jumlahsuratsakit' => $jumlahsuratsakit,
         ]);
+    }
+
+    private function formatJsonRecursive($data)
+    {
+        if (is_null($data)) return '-';
+
+        if (is_string($data)) {
+            $decoded = json_decode($data, true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $data = $decoded;
+            } else {
+                return $data;
+            }
+        }
+
+        if (is_array($data)) {
+
+            // Jika array numerik (contoh: list pasien)
+            if (array_keys($data) === range(0, count($data) - 1)) {
+
+                $html = '<div style="max-height:250px;overflow:auto">';
+                $html .= '<table class="table table-sm table-bordered">';
+
+                if (count($data) > 0) {
+                    $html .= '<thead><tr>';
+                    foreach (array_keys($data[0]) as $head) {
+                        $html .= '<th>' . ucwords(str_replace('_', ' ', $head)) . '</th>';
+                    }
+                    $html .= '</tr></thead><tbody>';
+
+                    foreach ($data as $row) {
+                        $html .= '<tr>';
+                        foreach ($row as $value) {
+                            $html .= '<td>' . $value . '</td>';
+                        }
+                        $html .= '</tr>';
+                    }
+
+                    $html .= '</tbody>';
+                }
+
+                $html .= '</table></div>';
+
+                return $html;
+            }
+
+            // Jika array associative
+            $html = '<ul style="padding-left:15px;">';
+            foreach ($data as $key => $value) {
+                $html .= '<li><b>' . ucwords(str_replace('_', ' ', $key)) . '</b> : ';
+                $html .= $this->formatJsonRecursive($value);
+                $html .= '</li>';
+            }
+            $html .= '</ul>';
+
+            return $html;
+        }
+
+        return $data;
     }
 }
