@@ -18,29 +18,65 @@ class CompressImages extends Command
 
         $files = Storage::disk('public')->files('registration');
 
+        if (empty($files)) {
+            $this->info('No files found.');
+            return;
+        }
+
         foreach ($files as $file) {
 
-            $this->info("Processing: " . $file);
-
-            $imagePath = storage_path('app/public/' . $file);
-
-            if (!file_exists($imagePath)) {
+            // Skip jika sudah webp
+            if (preg_match('/\.webp$/i', $file)) {
+                $this->line("Skipped (already webp): " . $file);
                 continue;
             }
 
-            $img = $manager->read($imagePath)
-                ->scale(width: 800)
-                ->toWebp(70);
+            // Hanya proses jpg/jpeg/png
+            if (!preg_match('/\.(jpg|jpeg|png)$/i', $file)) {
+                continue;
+            }
 
-            // Ganti extension jadi webp
-            $newPath = preg_replace('/\.(jpg|jpeg|png)$/i', '.webp', $file);
+            $path = storage_path('app/public/' . $file);
 
-            Storage::disk('public')->put($newPath, $img);
+            if (!file_exists($path)) {
+                $this->warn("Skipped (file not found): " . $file);
+                continue;
+            }
 
-            // Hapus file lama
-            Storage::disk('public')->delete($file);
+            if (filesize($path) == 0) {
+                $this->warn("Skipped (empty file): " . $file);
+                continue;
+            }
+
+            // Skip jika file sudah kecil (<100KB)
+            if (filesize($path) < 100000) {
+                $this->line("Skipped (already small): " . $file);
+                continue;
+            }
+
+            try {
+
+                $this->info("Processing: " . $file);
+
+                $image = $manager->read($path)
+                    ->scale(width: 800)
+                    ->toWebp(70);
+
+                $newPath = preg_replace('/\.(jpg|jpeg|png)$/i', '.webp', $file);
+
+                Storage::disk('public')->put($newPath, $image);
+
+                Storage::disk('public')->delete($file);
+
+                $this->info("Compressed → " . $newPath);
+            } catch (\Throwable $e) {
+
+                $this->error("Failed: " . $file);
+                $this->error("Reason: " . $e->getMessage());
+                continue;
+            }
         }
 
-        $this->info('All images compressed successfully!');
+        $this->info('Compression process completed.');
     }
 }
