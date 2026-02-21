@@ -12,18 +12,34 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Novay\Word\Facades\Word;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 
 class SuratGeneratorService
 {
+
     public function tambah($request)
     {
         if ($request->filled('foto')) {
+
+            $manager = new ImageManager(new Driver());
+
             $image = $request->input('foto');
-            $image = str_replace('data:image/png;base64,', '', $image);
+
+            // hapus prefix base64 (auto detect png/jpg/webp)
+            $image = preg_replace('#^data:image/\w+;base64,#i', '', $image);
             $image = str_replace(' ', '+', $image);
-            $imageName = 'registration/' . uniqid() . '.png';
-            Storage::disk('public')->put($imageName, base64_decode($image));
+
+            $decodedImage = base64_decode($image);
+
+            $img = $manager->read($decodedImage)
+                ->scale(width: 800)     // resize max width 800px
+                ->toWebp(70);           // compress 70%
+
+            $imageName = 'registration/' . uniqid() . '.webp';
+
+            Storage::disk('public')->put($imageName, $img);
 
             $request->merge([
                 'foto' => $imageName
