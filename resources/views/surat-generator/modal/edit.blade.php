@@ -84,18 +84,18 @@
                                     <strong class="text-muted">Umur</strong>
                                     <span>
                                         @php
-                                            if ($surat->patient->tgl_lahir) {
-                                                $tanggal_lahir = new DateTime($surat->patient->tgl_lahir);
-                                                $sekarang = new DateTime();
-                                                $umur = $sekarang->diff($tanggal_lahir);
+                                        if ($surat->patient?->tgl_lahir) {
+                                        $tanggal_lahir = new DateTime($surat->patient->tgl_lahir);
+                                        $sekarang = new DateTime();
+                                        $umur = $sekarang->diff($tanggal_lahir);
 
-                                                $tahun = $umur->y;
-                                                $bulan = $umur->m;
+                                        $tahun = $umur->y;
+                                        $bulan = $umur->m;
 
-                                                echo $tahun . ' TAHUN ' . $bulan . ' BULAN';
-                                            } else {
-                                                echo '-';
-                                            }
+                                        echo $tahun . ' TAHUN ' . $bulan . ' BULAN';
+                                        } else {
+                                        echo '-';
+                                        }
                                         @endphp
                                     </span>
                                     {{-- <span>243342</span> --}}
@@ -145,13 +145,13 @@
                                 <div class="col-md-6">
                                     <label for="agent_id" class="form-label">Agent</label>
                                     @if (Auth::user()->role == '1')
-                                        @php
-                                            $agents = \App\Models\Agent::where('clinic_id', Auth::user()->clinic_id)->with('customer', 'clinic')->latest()->get();
-                                        @endphp
+                                    @php
+                                    $agents = \App\Models\Agent::where('clinic_id', Auth::user()->clinic_id)->with('customer', 'clinic')->latest()->get();
+                                    @endphp
                                     @else
-                                        @php
-                                            $agents = \App\Models\Agent::with('customer')->latest()->get();
-                                        @endphp
+                                    @php
+                                    $agents = \App\Models\Agent::with('customer')->latest()->get();
+                                    @endphp
                                     @endif
                                     <select class="form-select select2" id="agent_id" name="agent_id">
                                         <option value="">Pilih Agent</option>
@@ -337,7 +337,9 @@
     // 🔹 Start kamera
     startCameraBtn.addEventListener("click", () => {
         if (stream) return;
-        navigator.mediaDevices.getUserMedia({ video: true })
+        navigator.mediaDevices.getUserMedia({
+                video: true
+            })
             .then(s => {
                 stream = s;
                 video.srcObject = stream;
@@ -367,11 +369,13 @@
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
-        const targetWidth = 600, targetHeight = 800;
+        const targetWidth = 600
+            , targetHeight = 800;
         canvas.width = targetWidth;
         canvas.height = targetHeight;
 
-        const vw = video.videoWidth, vh = video.videoHeight;
+        const vw = video.videoWidth
+            , vh = video.videoHeight;
         const ratio = targetWidth / targetHeight;
         let sx, sy, sw, sh;
 
@@ -423,5 +427,6 @@
         gambarInput.value = "";
         startCamera();
     });
+
 </script>
 @endpush
