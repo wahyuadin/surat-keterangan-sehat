@@ -270,10 +270,10 @@
     }, {
         data: 'patient.tgl_lahir'
         , name: 'patient.tgl_lahir'
-    }, {
-        data: 'umur'
-        , name: 'patient.tgl_lahir'
-        , render: (data, type, row) => {
+    },{
+        data: 'umur',
+        name: 'patient.tgl_lahir',
+        render: (data, type, row) => {
 
             // Cek apakah patient atau tgl_lahir null
             if (!row.patient || !row.patient.tgl_lahir) {
@@ -823,7 +823,7 @@
     }
 
     // 🔹 Ambil foto
-    snap ? .addEventListener("click", () => {
+    snap?.addEventListener("click", () => {
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
 
@@ -866,7 +866,7 @@
     });
 
     // 🔹 Ambil ulang foto
-    retake ? .addEventListener("click", () => {
+    retake?.addEventListener("click", () => {
         preview.style.display = "none";
         gambarInput.value = "";
         btnSimpan.disabled = true;
@@ -882,8 +882,8 @@
     const previewUpload = document.getElementById('previewUpload');
 
     function switchToCamera() {
-        btnUseCamera ? .classList.add('active');
-        btnUseUpload ? .classList.remove('active');
+        btnUseCamera?.classList.add('active');
+        btnUseUpload?.classList.remove('active');
         cameraSection.style.display = 'block';
         uploadSection.style.display = 'none';
         gambarInput.value = '';
@@ -893,8 +893,8 @@
     }
 
     function switchToUpload() {
-        btnUseUpload ? .classList.add('active');
-        btnUseCamera ? .classList.remove('active');
+        btnUseUpload?.classList.add('active');
+        btnUseCamera?.classList.remove('active');
         uploadSection.style.display = 'block';
         cameraSection.style.display = 'none';
         stopCamera();
@@ -903,11 +903,11 @@
         btnSimpan.disabled = true;
     }
 
-    btnUseCamera ? .addEventListener('click', switchToCamera);
-    btnUseUpload ? .addEventListener('click', switchToUpload);
+    btnUseCamera?.addEventListener('click', switchToCamera);
+    btnUseUpload?.addEventListener('click', switchToUpload);
 
     // 🔹 Upload Foto Manual
-    uploadFoto ? .addEventListener('change', function() {
+    uploadFoto?.addEventListener('change', function() {
         const file = this.files[0];
         if (file) {
             const reader = new FileReader();
