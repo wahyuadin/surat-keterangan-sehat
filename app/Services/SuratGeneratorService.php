@@ -22,12 +22,8 @@ class SuratGeneratorService
     public function tambah($request)
     {
         if ($request->filled('foto')) {
-
             $manager = new ImageManager(new Driver());
-
             $image = $request->input('foto');
-
-            // hapus prefix base64 (auto detect png/jpg/webp)
             $image = preg_replace('#^data:image/\w+;base64,#i', '', $image);
             $image = str_replace(' ', '+', $image);
 
@@ -90,8 +86,6 @@ class SuratGeneratorService
                 // tidak ganti foto
                 $request->request->remove('foto');
             }
-
-
             Transaksi::editData($id, $request->except('_method', '_token'));
             toastify()->success('Data Berhasil diedit.');
             DB::commit();
