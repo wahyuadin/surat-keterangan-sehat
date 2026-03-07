@@ -26,7 +26,7 @@ class PatientTemplate extends Model implements Auditable
 
     public static function showData($id = null)
     {
-        return $id ? self::where('id', $id)->with('clinic')->first() : self::latest()->with('clinic')->get();
+        return $id ? self::where('clinic_id', $id)->with('clinic')->get() : self::latest()->with('clinic')->get();
     }
 
     public static function tambahData($data)

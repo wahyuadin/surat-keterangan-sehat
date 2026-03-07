@@ -207,4 +207,36 @@ class SuratGeneratorService
         return Word::template(asset('storage/word/skd.docx'))
             ->download(now()->format('d-m-Y_His') . 'template.docx');
     }
+
+    public function search($request)
+    {
+        $search = $request->q;
+        $patients = Patient::query()
+            ->when(Auth::user()->role != '2', function ($q) {
+                $q->where('clinic_id', Auth::user()->clinic_id);
+            })
+            ->whereNotNull('clinic_id')
+            ->whereNotNull('customer_id')
+            ->when($search, function ($q) use ($search) {
+                $q->where(function ($query) use ($search) {
+                    $query->where('nama_pasien', 'like', "%$search%")
+                        ->orWhere('no_ktp', 'like', "%$search%");
+                });
+            })
+            ->limit(20)
+            ->get();
+
+        $data = [];
+
+        foreach ($patients as $patient) {
+            $data[] = [
+                'id' => $patient->id,
+                'text' => '[' . strtoupper($patient->no_ktp ?? '-') . '] ' . strtoupper($patient->nama_pasien ?? '-')
+            ];
+        }
+
+        return response()->json([
+            'results' => $data
+        ]);
+    }
 }

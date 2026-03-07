@@ -103,4 +103,9 @@ class SuratGeneratorController extends Controller
     {
         return $this->suratGenerator->suratBlangkoDocx();
     }
+
+    public function search(Request $request)
+    {
+        return $this->suratGenerator->search($request);
+    }
 }

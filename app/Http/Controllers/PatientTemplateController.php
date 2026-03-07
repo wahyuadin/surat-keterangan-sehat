@@ -18,6 +18,9 @@ class PatientTemplateController extends Controller
 
     public function index()
     {
+        if (auth()->user()->role != 2) {
+            return view('patient-template.index', ['data' => PatientTemplate::showData(auth()->user()->clinic_id)]);
+        }
         return view('patient-template.index', ['data' => PatientTemplate::showData()]);
     }
 
