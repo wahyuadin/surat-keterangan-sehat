@@ -3,62 +3,65 @@
 namespace App\Services;
 
 use App\Models\Clinic;
-use App\Models\Transaksi;
 use App\Models\Patient;
+use App\Models\Transaksi;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Yajra\DataTables\Facades\DataTables;
-use Novay\Word\Facades\Word;
-use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
-
+use Intervention\Image\ImageManager;
+use Novay\Word\Facades\Word;
+use Yajra\DataTables\Facades\DataTables;
 
 class SuratGeneratorService
 {
-
     public function tambah($request)
     {
         if ($request->filled('foto')) {
-            $manager = new ImageManager(new Driver());
+            $manager = new ImageManager(new Driver);
             $image = $request->input('foto');
             $image = preg_replace('#^data:image/\w+;base64,#i', '', $image);
             $image = str_replace(' ', '+', $image);
-
             $decodedImage = base64_decode($image);
-
             $img = $manager->read($decodedImage)
-                ->scale(width: 800)     // resize max width 800px
-                ->toWebp(70);           // compress 70%
+                ->scale(width: 800)
+                ->toWebp(70);
 
-            $imageName = 'registration/' . uniqid() . '.webp';
+            $imageName = 'registration/'.uniqid().'.webp';
 
             Storage::disk('public')->put($imageName, $img);
 
             $request->merge([
-                'foto' => $imageName
+                'foto' => $imageName,
             ]);
         }
 
         if ($request->is_bayar == true) {
             $request->merge([
-                'is_tagih' => true
+                'is_tagih' => true,
             ]);
         }
+
+        if ($request->tes_kehamilan == 'other') {
+            $request->request->remove('tes_kehamilan');
+        }
+
         DB::beginTransaction();
         try {
-            $data = Transaksi::tambahData($request->except('_token', '_method'));
-            $result = Transaksi::with('paramedis.clinic', 'patient')->find($data)->toArray();
-            $pdf = Pdf::loadView('surat-generator.pdf', ['data' => $result])->setPaper('A4', 'portait');
+            Transaksi::tambahData($request->except('_token', '_method'));
+            // $result = Transaksi::with('paramedis.clinic', 'patient')->find($data)->toArray();
+            // $pdf = Pdf::loadView('surat-generator.pdf', ['data' => $result])->setPaper('A4', 'portait');
             DB::commit();
             // return $pdf->stream($result['patient']['nama_pasien'] . '_' . $result['patient']['no_ktp'] . '_' . $result['tgl_transaksi'] . '.pdf');
             // return $pdf->stream('surat-generator_' . now()->format('dmyHis') . '.pdf');
             toastify()->success('Data Berhasil Ditambahlan.');
+
             return redirect()->route('surat.index');
         } catch (\Throwable $th) {
-            toastify()->error('Error, ' . $th);
+            toastify()->error('Error, '.$th);
+
             return redirect()->back();
             DB::rollback();
         }
@@ -68,24 +71,43 @@ class SuratGeneratorService
     {
         DB::beginTransaction();
         try {
-            // kalau ada foto base64 (kamera)
             if ($request->filled('foto') && str_starts_with($request->input('foto'), 'data:image')) {
-                // base64 dari kamera
+                $manager = new ImageManager(new Driver);
                 $image = $request->input('foto');
-                $image = preg_replace('/^data:image\/\w+;base64,/', '', $image);
-                $imageName = 'registration/' . uniqid() . '.png';
-                Storage::disk('public')->put($imageName, base64_decode($image));
-                $request->merge(['foto' => $imageName]);
+                $image = preg_replace('#^data:image/\w+;base64,#i', '', $image);
+                $image = str_replace(' ', '+', $image);
+                $decodedImage = base64_decode($image);
+                $img = $manager->read($decodedImage)
+                    ->scale(width: 800)
+                    ->toWebp(70);
+
+                $imageName = 'registration/'.uniqid().'.webp';
+
+                Storage::disk('public')->put($imageName, $img);
+
+                $request->merge([
+                    'foto' => $imageName,
+                ]);
             } elseif ($request->hasFile('foto') && $request->file('foto')->isValid()) {
-                // file upload manual
+                $manager = new ImageManager(new Driver);
                 $file = $request->file('foto');
-                $imageName = 'registration/' . uniqid() . '.' . $file->getClientOriginalExtension();
-                $file->storeAs('public', $imageName);
-                $request->merge(['foto' => $imageName]);
+                $img = $manager->read($file->getPathname())
+                    ->scale(width: 800)
+                    ->toWebp(70);
+                $imageName = 'registration/'.uniqid().'.webp';
+                Storage::disk('public')->put($imageName, $img);
+
+                $request->merge([
+                    'foto' => $imageName,
+                ]);
             } else {
-                // tidak ganti foto
                 $request->request->remove('foto');
             }
+
+            $request->merge([
+                'tes_kehamilan' => $request->tes_kehamilan === 'other' ? null : $request->tes_kehamilan,
+            ]);
+
             Transaksi::editData($id, $request->except('_method', '_token'));
             toastify()->success('Data Berhasil diedit.');
             DB::commit();
@@ -93,11 +115,11 @@ class SuratGeneratorService
             return redirect()->route('surat.index');
         } catch (\Throwable $th) {
             DB::rollBack();
-            toastify()->error('Error: ' . $th->getMessage());
+            toastify()->error('Error: '.$th->getMessage());
+
             return redirect()->back();
         }
     }
-
 
     public function hapus($id)
     {
@@ -106,10 +128,12 @@ class SuratGeneratorService
             Transaksi::hapusData($id);
             toastify()->success('Data Berhasil Dihapus.');
             DB::commit();
+
             return redirect()->route('surat.index');
         } catch (\Throwable $th) {
-            toastify()->error('Error, ' . $th);
+            toastify()->error('Error, '.$th);
             DB::rollback();
+
             return redirect()->back();
         }
     }
@@ -121,11 +145,13 @@ class SuratGeneratorService
             $result = Transaksi::showDatabyAudit($id);
             $pdf = Pdf::loadView('surat-generator.pdf', ['data' => $result])->setPaper([0, 0, 419.53, 595.28], 'portrait');
             DB::commit();
-            return $pdf->stream($result['patient']['nama_pasien'] . '_' . $result['patient']['no_ktp'] . '_' . $result['tgl_transaksi'] . '.pdf');
+
+            return $pdf->stream($result['patient']['nama_pasien'].'_'.$result['patient']['no_ktp'].'_'.$result['tgl_transaksi'].'.pdf');
             // toastify()->success('Data Berhasil Ditambahlan.');
             // return redirect()->route('surat.index');
         } catch (\Throwable $th) {
-            toastify()->error('Error, ' . $th);
+            toastify()->error('Error, '.$th);
+
             return redirect()->back();
             DB::rollback();
         }
@@ -136,7 +162,7 @@ class SuratGeneratorService
         $patient = Patient::with('clinic')->findOrFail($patient_id);
 
         $clinic = $patient->clinic;
-        if (!$clinic) {
+        if (! $clinic) {
             return response()->json(['error' => 'Clinic tidak ditemukan'], 404);
         }
 
@@ -161,7 +187,7 @@ class SuratGeneratorService
         if ($user->role == '1') {
             $clinicId = $user->clinic_id;
             $query = Transaksi::showData($clinicId);
-        } else if ($user->role == '0') {
+        } elseif ($user->role == '0') {
             $customerid = $user->customer_id;
             $query = Transaksi::showDataCustomer($customerid);
         } else {
@@ -172,21 +198,22 @@ class SuratGeneratorService
             $query->whereBetween('tgl_transaksi', [$request->dari, $request->sampai]);
             $query->when(
                 $request->agent_id && $request->agent_id !== 'without' && $request->agent_id !== 'all',
-                fn($q) => $q->where('agent_id', $request->agent_id)
+                fn ($q) => $q->where('agent_id', $request->agent_id)
             )->when(
                 $request->agent_id === 'without',
-                fn($q) => $q->whereNull('agent_id')
+                fn ($q) => $q->whereNull('agent_id')
             );
         }
 
         return DataTables::eloquent($query)
             ->addIndexColumn()
             ->editColumn('tgl_transaksi', function ($row) {
-                return Carbon::parse($row->tgl_transaksi)->locale('id')->isoFormat('D MMMM Y');
+                return Carbon::parse($row->created_at)->locale('id')->isoFormat('D MMMM Y HH:mm');
             })
-            ->addColumn('clinic', fn($row) => $row->patient?->clinic?->nama_klinik ?? '-')
-            ->addColumn('customer', fn($row) => $row->patient?->customer?->nama_perusahaan ?? '-')
-            ->addColumn('paramedis', fn($row) => $row->paramedis?->nama ?? '-')
+
+            ->addColumn('clinic', fn ($row) => $row->patient?->clinic?->nama_klinik ?? '-')
+            ->addColumn('customer', fn ($row) => $row->patient?->customer?->nama_perusahaan ?? '-')
+            ->addColumn('paramedis', fn ($row) => $row->paramedis?->nama ?? '-')
             ->toJson();
     }
 
@@ -199,7 +226,7 @@ class SuratGeneratorService
     {
         // $data = Clinic::where('id', Auth::user()->clinic_id)->first();
         return Word::template(asset('storage/word/skd.docx'))
-            ->download(now()->format('d-m-Y_His') . 'template.docx');
+            ->download(now()->format('d-m-Y_His').'template.docx');
     }
 
     public function search($request)
@@ -225,12 +252,13 @@ class SuratGeneratorService
         foreach ($patients as $patient) {
             $data[] = [
                 'id' => $patient->id,
-                'text' => '[' . strtoupper($patient->no_ktp ?? '-') . '] ' . strtoupper($patient->nama_pasien ?? '-')
+                'text' => '['.strtoupper($patient->no_ktp ?? '-').'] '.strtoupper($patient->nama_pasien ?? '-'),
+                'jenis_kelamin' => $patient->jenis_kelamin ?? '-',
             ];
         }
 
         return response()->json([
-            'results' => $data
+            'results' => $data,
         ]);
     }
 }

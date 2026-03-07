@@ -71,7 +71,6 @@
                                         {{ $surat->patient->jenis_kelamin == 1 ? 'LAKI-LAKI' : ($surat->patient->jenis_kelamin == 0 ? 'PEREMPUAN' : '-') }}
                                     </span>
                                 </li>
-
                                 <li class="list-group-item d-flex justify-content-between px-0">
                                     <strong class="text-muted">No. KTP</strong>
                                     <span>{{ Str::upper($surat->patient->no_ktp ?? '-') }}</span>
@@ -149,28 +148,7 @@
                                     <label for="tgl_transaksi" class="form-label">Tgl. Transaksi</label>
                                     <input type="date" class="form-control" id="tgl_transaksi" name="tgl_transaksi" value="{{ $surat->tgl_transaksi ?? null }}">
                                 </div>
-                                <div class="row g-3" id="genderRow">
-                                    <div class="col-md-12 mb-3" id="isGenderCol">
-                                        <label class="form-label">Jenis Kelamin</label>
-                                        <div class="input-group">
-                                            <select id="is_gender" class="form-control" disabled>
-                                                <option value="L">Laki-Laki</option>
-                                                <option value="P">Perempuan</option>
-                                            </select>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-md-6 mb-3" id="hamilCol" style="display:none">
-                                        <label class="form-label">Tes Kehamilan</label>
-                                        <select name="tes_kehamilan" id="hamil_id" class="form-select select2">
-                                            <option disabled>== Pilih Salah Satu ==</option>
-                                            <option value="other" {{ $surat->tes_kehamilan == 'other' ? 'selected' : '' }}>Tidak Diinputkan</option>
-                                            <option value="Positif" {{ $surat->tes_kehamilan == 'Positif' ? 'selected' : '' }}>Positif</option>
-                                            <option value="Negatif" {{ $surat->tes_kehamilan == 'Negatif' ? 'selected' : '' }}>Negatif</option>
-                                        </select>
-                                    </div>
-
-                                </div>
                                 <div class="col-md-6">
                                     <label for="agent_id" class="form-label">Agent</label>
                                     @if (Auth::user()->role == '1')
@@ -337,24 +315,6 @@
         line-height: 1.5 !important;
     }
 
-    #video {
-        transform: scaleX(-1);
-        -webkit-transform: scaleX(-1);
-    }
-
-    #preview {
-        transform: scaleX(1);
-    }
-
-    .select2-container .select2-selection--single {
-        height: 38px !important;
-        padding: 6px 12px;
-    }
-
-    .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
-        line-height: 1.5 !important;
-    }
-
 </style>
 @endpush
 
@@ -364,18 +324,12 @@
 <script>
     // Inisialisasi Select2
     $(document).ready(function() {
-
         $('.select2').select2({
-            theme: "bootstrap-5"
-            , placeholder: "Pilih data..."
+            placeholder: "Cari atau pilih data..."
+            , theme: "bootstrap-5"
             , allowClear: true
-        });
-
+        , });
     });
-
-    /* ================================
-    KAMERA + UPLOAD FOTO
-    ================================ */
 
     const video = document.getElementById('video');
     const startCameraBtn = document.getElementById('startCamera');
@@ -385,220 +339,100 @@
     const gambarInput = document.getElementById('gambarInput');
     const uploadFileBtn = document.getElementById('uploadFile');
     const fotoFile = document.getElementById('fotoFile');
-
     let stream = null;
 
-
-    /* ================================
-    START CAMERA
-    ================================ */
-
-    function startCamera() {
-
+    // 🔹 Start kamera
+    startCameraBtn.addEventListener("click", () => {
         if (stream) return;
-
         navigator.mediaDevices.getUserMedia({
-                video: {
-                    facingMode: "user"
-                    , width: {
-                        ideal: 1280
-                    }
-                    , height: {
-                        ideal: 720
-                    }
-                }
+                video: true
             })
             .then(s => {
-
                 stream = s;
                 video.srcObject = stream;
-
                 video.style.display = "block";
                 preview.style.display = "none";
-
                 startCameraBtn.style.display = "none";
                 snapBtn.style.display = "inline-block";
                 retakeBtn.style.display = "none";
-
             })
             .catch(err => {
-
-                alert("Tidak dapat mengakses kamera");
-                console.error(err);
-
+                alert("Gagal mengakses kamera: " + err.message);
             });
+    });
 
-    }
-
-    startCameraBtn.addEventListener("click", startCamera);
-
-
-    /* ================================
-    STOP CAMERA
-    ================================ */
-
+    // 🔹 Stop kamera
     function stopCamera() {
-
         if (stream) {
-
             stream.getTracks().forEach(track => track.stop());
             stream = null;
-
         }
-
         video.srcObject = null;
         video.style.display = "none";
-
     }
 
-
-    /* ================================
-    AMBIL FOTO
-    ================================ */
-
+    // 🔹 Ambil foto
     snapBtn.addEventListener("click", () => {
-
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
-        const targetWidth = 600;
-        const targetHeight = 800;
-
+        const targetWidth = 600
+            , targetHeight = 800;
         canvas.width = targetWidth;
         canvas.height = targetHeight;
 
-        const vw = video.videoWidth;
-        const vh = video.videoHeight;
-
+        const vw = video.videoWidth
+            , vh = video.videoHeight;
         const ratio = targetWidth / targetHeight;
-
         let sx, sy, sw, sh;
 
         if (vw / vh > ratio) {
-
             sh = vh;
             sw = vh * ratio;
             sx = (vw - sw) / 2;
             sy = 0;
-
         } else {
-
             sw = vw;
             sh = vw / ratio;
             sx = 0;
             sy = (vh - sh) / 2;
-
         }
 
-        ctx.translate(targetWidth, 0);
-        ctx.scale(-1, 1);
-
         ctx.drawImage(video, sx, sy, sw, sh, 0, 0, targetWidth, targetHeight);
-
-        const dataUrl = canvas.toDataURL("image/webp", 0.7);
+        const dataUrl = canvas.toDataURL("image/png");
 
         preview.src = dataUrl;
         preview.style.display = "block";
-
         gambarInput.value = dataUrl;
 
         stopCamera();
-
         snapBtn.style.display = "none";
         retakeBtn.style.display = "inline-block";
-
     });
 
-
-    /* ================================
-    RETAKE FOTO
-    ================================ */
-
-    retakeBtn.addEventListener("click", () => {
-
-        preview.style.display = "none";
-        gambarInput.value = "";
-
-        startCamera();
-
-    });
-
-    uploadFileBtn.addEventListener("click", () => {
-
+    // 🔹 Upload manual
+    uploadFileBtn.addEventListener('click', () => {
         stopCamera();
         fotoFile.click();
-
     });
 
-    fotoFile.addEventListener("change", function() {
-
+    fotoFile.addEventListener('change', function() {
         const file = this.files[0];
         if (!file) return;
-
         const reader = new FileReader();
-
         reader.onload = function(e) {
-
-            const img = new Image();
-
-            img.onload = function() {
-
-                const canvas = document.createElement("canvas");
-                const ctx = canvas.getContext("2d");
-
-                canvas.width = 600;
-                canvas.height = 800;
-
-                ctx.drawImage(img, 0, 0, 600, 800);
-
-                const dataUrl = canvas.toDataURL("image/webp", 0.7);
-
-                preview.src = dataUrl;
-                preview.style.display = "block";
-
-                gambarInput.value = dataUrl;
-
-            };
-
-            img.src = e.target.result;
-
+            preview.src = e.target.result;
+            preview.style.display = "block";
+            gambarInput.value = e.target.result; // base64
         };
         reader.readAsDataURL(file);
-
     });
 
-    function toggleGender() {
-
-        let gender = "{{ $surat->patient->jenis_kelamin ?? null }}";
-
-        if (gender == 0) {
-
-            $('#is_gender').val('P');
-
-            $('#isGenderCol')
-                .removeClass('col-md-12')
-                .addClass('col-md-6');
-
-            $('#hamilCol').show();
-
-        } else if (gender == 1) {
-
-            $('#is_gender').val('L');
-
-            $('#isGenderCol')
-                .removeClass('col-md-6')
-                .addClass('col-md-12');
-
-            $('#hamilCol').hide();
-
-        }
-
-    }
-
-    $(document).ready(function() {
-
-        toggleGender();
-
+    // 🔹 Ulangi foto
+    retakeBtn.addEventListener("click", () => {
+        preview.style.display = "none";
+        gambarInput.value = "";
+        startCamera();
     });
 
 </script>

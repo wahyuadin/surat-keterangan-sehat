@@ -113,6 +113,7 @@
                             <th>Keperluan</th>
                             <th>Foto</th>
                             <th>Asal Perusahaan</th>
+                            <th>Status Kehamilan</th>
                             <th>Status Transaksi</th>
                             @if (Auth::user()->role == '2')
                             <th>Tarif</th>
@@ -375,6 +376,11 @@
         data: 'patient.customer.nama_perusahaan'
         , name: 'patient.customer.nama_perusahaan'
         , render: data => data ? data.toUpperCase() : ''
+    }, {
+        data: 'tes_kehamilan',
+        searchable: false,
+        orderable: false,
+        render: data => data ? data.toUpperCase() : '-'
     }, {
         data: 'is_bayar'
         , name: 'is_bayar'

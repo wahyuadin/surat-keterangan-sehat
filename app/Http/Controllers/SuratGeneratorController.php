@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
 use App\Services\SuratGeneratorService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Carbon\Carbon;
 
 class SuratGeneratorController extends Controller
 {
@@ -40,13 +40,14 @@ class SuratGeneratorController extends Controller
                 'required',
                 Rule::unique('transaksis', 'patient_id')
                     ->where(
-                        fn($query) =>
-                        $query->whereDate('created_at', Carbon::today())
+                        fn ($query) => $query->whereDate('created_at', Carbon::today())
                             ->whereNull('deleted_at')
                     ),
             ],
+            'no_transaksi' => 'required',
         ], [
-            'patient_id.unique' => 'Pasien sudah diinput hari ini, silakan cek kembali atau coba besok.'
+            'patient_id.unique' => 'Pasien sudah diinput hari ini, silakan cek kembali atau coba besok.',
+            'no_transaksi.required' => 'No Transaksi Belum ter-generate',
         ]);
 
         return $this->suratGenerator->tambah($request);

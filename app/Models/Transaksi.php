@@ -13,15 +13,16 @@ use OwenIt\Auditing\Events\AuditCustom;
 
 class Transaksi extends Model implements Auditable
 {
-    use HasFactory, SoftDeletes, AuditingAuditable;
+    use AuditingAuditable, HasFactory, SoftDeletes;
+
     protected $guarded = [];
+
     protected $auditEvents = [
         'created',
         'updated',
         'deleted',
         'restored',
     ];
-
 
     public function patient()
     {
@@ -38,18 +39,40 @@ class Transaksi extends Model implements Auditable
         return $this->belongsTo(Agent::class, 'agent_id')->withTrashed();
     }
 
-    public static function showData($id = null)
+    public static function showData($clinicId = null)
     {
-        return $id ? self::whereHas('patient.clinic', function ($q) use ($id) {
-            $q->where('id', $id);
-        })->with('patient.clinic', 'patient.customer', 'paramedis', 'agent')->latest() : self::with('patient.clinic', 'patient.customer', 'paramedis', 'agent')->latest();
+        $query = self::with([
+            'patient.clinic',
+            'patient.customer',
+            'paramedis',
+            'agent',
+        ]);
+
+        if ($clinicId) {
+            $query->whereHas('patient', function ($q) use ($clinicId) {
+                $q->where('clinic_id', $clinicId);
+            });
+        }
+
+        return $query->latest();
     }
 
-    public static function showDataCustomer($id = null)
+    public static function showDataCustomer($customerId = null)
     {
-        return $id ? self::whereHas('patient.customer', function ($q) use ($id) {
-            $q->where('id', $id);
-        })->with('patient.clinic', 'patient.customer', 'paramedis', 'agent')->latest() : self::with('patient.clinic', 'patient.customer', 'paramedis', 'agent')->latest();
+        $query = self::with([
+            'patient.clinic',
+            'patient.customer',
+            'paramedis',
+            'agent',
+        ]);
+
+        if ($customerId) {
+            $query->whereHas('patient', function ($q) use ($customerId) {
+                $q->where('customer_id', $customerId);
+            });
+        }
+
+        return $query->latest();
     }
 
     public static function tambahData($data)
@@ -58,10 +81,11 @@ class Transaksi extends Model implements Auditable
         $model->auditEvent = 'created';
         $model->isCustomEvent = true;
         $model->auditCustomNew = [
-            'print'     => 'User dengan atas nama ' . Auth::user()->nama . ' Telah membuat surat SKD',
-            'tanggal'   => \Carbon\Carbon::now(),
-            'data'      => $data,
+            'print' => 'User dengan atas nama '.Auth::user()->nama.' Telah membuat surat SKD',
+            'tanggal' => \Carbon\Carbon::now(),
+            'data' => $data,
         ];
+
         return $model->id;
     }
 
@@ -70,6 +94,7 @@ class Transaksi extends Model implements Auditable
         $agent = self::findOrFail($id);
         $agent->fill($data);
         $agent->save();
+
         return $agent;
     }
 
@@ -77,6 +102,7 @@ class Transaksi extends Model implements Auditable
     {
         $agent = self::findOrFail($id);
         $agent->delete();
+
         return $agent;
     }
 
@@ -86,10 +112,11 @@ class Transaksi extends Model implements Auditable
         $model->auditEvent = 'Monitoring Print';
         $model->isCustomEvent = true;
         $model->auditCustomNew = [
-            'print'     => 'User dengan atas nama ' . Auth::user()->nama . ' Telah membuat surat SKD',
-            'tanggal'   => \Carbon\Carbon::now(),
+            'print' => 'User dengan atas nama '.Auth::user()->nama.' Telah membuat surat SKD',
+            'tanggal' => \Carbon\Carbon::now(),
         ];
         Event::dispatch(AuditCustom::class, [$model]);
+
         return $model->toArray();
     }
 }

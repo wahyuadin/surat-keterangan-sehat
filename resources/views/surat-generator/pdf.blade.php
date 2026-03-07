@@ -268,7 +268,7 @@
         </tr>
         <tr>
             <td class="label">Suhu</td>
-            <td> {{ $data['suhu'] }} °C </td>
+            <td> {{ $data['suhu'] }} ï¿½C </td>
         </tr>
         <tr>
             <td class="label">Saturasi</td>
@@ -302,6 +302,12 @@
             <td class="label">Pendengaran</td>
             <td>@if($data['pendengaran'] == 1) Respon @elseif($data['pendengaran'] == 0) Tidak Respon @else - @endif</td>
         </tr>
+        @if ($data['tes_kehamilan'] != null)
+            <tr>
+                <td class="label">Tes Kehamilan</td>
+                <td>{{ ucwords($data['tes_kehamilan'] ?? '-') }}</td>
+            </tr>
+        @endif
     </table>
 
     <div class="conclusion">

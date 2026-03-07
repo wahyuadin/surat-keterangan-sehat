@@ -14,16 +14,10 @@
                             <label for="patient_id" class="form-label">Nama Pasien <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <div class="input-group">
-                                    <select name="patient_id"
-                                        id="patient_id"
-                                        class="form-select patient-select flex-grow-1"
-                                        required>
+                                    <select name="patient_id" id="patient_id" class="form-select patient-select flex-grow-1" required>
                                     </select>
 
-                                    <button type="button"
-                                        class="btn btn-outline-secondary"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addModalPatient">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addModalPatient">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -52,7 +46,7 @@
                     </div>
                     <div class="row" id="agentRow">
                         <div class="col-md-12 mb-3" id="isAgentCol">
-                            <label for="is_agent" class="form-label">Is Agent</label>
+                            <label for="is_agent" class="form-label">Is Agent <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <select id="is_agent" class="form-select" required>
                                     <option selected disabled>== Pilih Salah Satu ==</option>
@@ -63,7 +57,7 @@
                         </div>
 
                         <div class="col-md-6 mb-3" id="agentCol" style="display:none">
-                            <label for="agent_id" class="form-label">Agent</label>
+                            <label for="agent_id" class="form-label">Agent <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <select name="agent_id" id="agent_id" class="form-select select2">
                                     <option selected disabled>== Pilih Salah Satu ==</option>
@@ -84,22 +78,46 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" id="genderRow">
+                        <div class="col-md-12 mb-3" id="isGenderCol">
+                            <label for="is_gender" class="form-label">Jenis Kelamin <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <select id="is_gender" class="form-control" disabled>
+                                    <option selected>Akan Terisi Otomatis</option>
+                                    <option value="L">Laki-Laki</option>
+                                    <option value="P">Perempuan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3" id="hamilCol" style="display:none">
+                            <label for="hamil_id" class="form-label">Tes Kehamilan <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <select name="tes_kehamilan" id="hamil_id" class="form-select select2">
+                                    <option selected disabled>== Pilih Salah Satu ==</option>
+                                    <option value="other">Tidak Diinputkan</option>
+                                    <option value="Positif">Positif</option>
+                                    <option value="Negatif">Negatif</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label for="no_transaksi" class="form-label">No Transaksi</label>
+                            <label for="no_transaksi" class="form-label">No Transaksi <span class="text-danger">*</span></label>
                             <div class="input-group">
-                                <input type="text" id="no_transaksi" name="no_transaksi" class="form-control" readonly>
+                                <input type="text" id="no_transaksi" name="no_transaksi" class="form-control" readonly placeholder="No Transaksi akan generate otomatis">
                             </div>
                         </div>
 
 
                         <div class="col-md-4 mb-3">
-                            <label for="tgl_transaksi" class="form-label">Tanggal Transaksi</label>
+                            <label for="tgl_transaksi" class="form-label">Tanggal Transaksi <span class="text-danger">*</span></label>
                             <input type="date" name="tgl_transaksi" class="form-control" value="{{ now()->format('Y-m-d') }}" readonly required>
 
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="suhu" class="form-label">Suhu</label>
+                            <label for="suhu" class="form-label">Suhu <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <input type="text" name="suhu" class="form-control" placeholder="Masukkan Suhu" value="{{ old('suhu') }}">
                                 <span class="input-group-text">C</span>
@@ -108,7 +126,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label for="tinggi_badan" class="form-label">Tinggi Badan</label>
+                            <label for="tinggi_badan" class="form-label">Tinggi Badan <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <input type="number" name="tinggi_badan" class="form-control" placeholder="Masukkan Tinggi Badan" value="{{ old('tinggi_badan') }}">
                                 <span class="input-group-text">cm</span>
@@ -116,7 +134,7 @@
                         </div>
 
                         <div class="col-md-4 mb-3">
-                            <label for="berat_badan" class="form-label">Berat Badan</label>
+                            <label for="berat_badan" class="form-label">Berat Badan <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <input type="number" name="berat_badan" class="form-control" placeholder="Masukkan Berat Badan" value="{{ old('berat_badan') }}">
                                 <span class="input-group-text">kg</span>
@@ -124,7 +142,7 @@
                         </div>
 
                         <div class="col-md-4 mb-3">
-                            <label for="tensi" class="form-label">Tensi</label>
+                            <label for="tensi" class="form-label">Tensi <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <input type="number" id="tensi_sistolik" class="form-control" placeholder="Sistolik" value="{{ old('tensi_sistolik') }}" required>
                                 <span class="input-group-text">/</span>
@@ -139,12 +157,12 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="saturnasi" class="form-label">Saturasi</label>
+                            <label for="saturnasi" class="form-label">Saturasi <span class="text-danger">*</span></label>
                             <input type="number" name="saturnasi" class="form-control" placeholder="Masukkan Saturnasi" value="{{ old('saturnasi') }}">
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="denyutnadi" class="form-label">Denyut Nadi</label>
+                            <label for="denyutnadi" class="form-label">Denyut Nadi <span class="text-danger">*</span></label>
                             <input type="number" name="denyutnadi" class="form-control" placeholder="Masukkan Denyut Nadi" value="{{ old('denyutnadi') }}">
                         </div>
 
@@ -152,7 +170,7 @@
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label class="form-check-label" for="buta_warna">
-                                Buta Warna
+                                Buta Warna <span class="text-danger">*</span>
                             </label>
                             <select name="buta_warna" class="form-select">
                                 <option selected disabled>== Pilih Salah Satu ==</option>
@@ -164,7 +182,7 @@
 
                         <div class="col-md-3 mb-3">
                             <label class="form-check-label" for="pendengaran">
-                                Pendengaran
+                                Pendengaran <span class="text-danger">*</span>
                             </label>
                             <select name="pendengaran" class="form-select">
                                 <option selected disabled>== Pilih Salah Satu ==</option>
@@ -176,7 +194,7 @@
 
                         <div class="col-md-3 mb-3">
                             <label class="form-check-label" for="status_kesehatan">
-                                Status Kesehatan
+                                Status Kesehatan <span class="text-danger">*</span>
                             </label>
                             <select name="status_kesehatan" class="form-select">
                                 <option selected disabled>== Pilih Salah Satu ==</option>
@@ -188,7 +206,7 @@
 
                         <div class="col-md-3 mb-3">
                             <label class="form-check-label" for="gol_darah">
-                                Golongan Darah
+                                Golongan Darah <span class="text-danger">*</span>
                             </label>
                             <select name="gol_darah" class="form-select">
                                 <option selected disabled>== Pilih Salah Satu ==</option>
@@ -202,11 +220,11 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="keperluan" class="form-label">Keperluan</label>
+                        <label for="keperluan" class="form-label">Keperluan <span class="text-danger">*</span></label>
                         <textarea name="keperluan" id="keperluan" class="form-control" rows="3" placeholder="Masukkan keperluan (opsional)">{{ old('keperluan') }}</textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="keperluan" class="form-label">Status Pembayaran</label>
+                        <label for="keperluan" class="form-label">Status Pembayaran <span class="text-danger">*</span></label>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="is_bayar" id="is_bayar_0" value="0" checked>
                             <label class="form-check-label" for="is_bayar_0">
@@ -222,7 +240,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Foto</label> <br>
+                        <label class="form-label">Foto <span class="text-danger">*</span></label> <br>
                         <div class="btn-group mb-2">
                             <button type="button" id="btnUseCamera" class="btn btn-outline-primary active">Kamera</button>
                             <button type="button" id="btnUseUpload" class="btn btn-outline-secondary">Upload</button>
@@ -231,7 +249,7 @@
                         <!-- Mode Kamera -->
                         <div id="cameraSection">
                             <video id="video" autoplay style="width:300px; height:400px; object-fit:cover; border:1px solid #000;"></video><br>
-                            <button type="button" id="snap" class="btn btn-primary mt-2">Ambil Foto</button>
+                            <button type="button" id="snap" class="btn btn-success mt-2"><i class='bx bx-camera'></i> Ambil Foto</button>
                             <img id="preview" src="#" alt="Preview Foto" style="width:300px; height:400px; object-fit:cover; border:1px solid #000; margin-top:10px; display:none;">
                             <button type="button" id="retake" class="btn btn-danger mt-2" style="display:none;">Ambil Ulang</button>
                         </div>
@@ -243,8 +261,8 @@
                         </div>
 
                         <input type="hidden" name="foto" id="gambarInput">
-                        </div>
                     </div>
+                </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -258,24 +276,25 @@
 @push('style')
 <style>
     /* Select2 di dalam input-group */
-.input-group .select2-container {
-    flex: 1 1 auto;
-    width: 1% !important;
-}
+    .input-group .select2-container {
+        flex: 1 1 auto;
+        width: 1% !important;
+    }
 
-.input-group .select2-container .select2-selection {
-    height: 38px;
-    padding: 5px 10px;
-}
+    .input-group .select2-container .select2-selection {
+        height: 38px;
+        padding: 5px 10px;
+    }
 
-.input-group .select2-container--bootstrap-5 .select2-selection {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
+    .input-group .select2-container--bootstrap-5 .select2-selection {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
 
-.input-group .btn {
-    height: 38px;
-}
+    .input-group .btn {
+        height: 38px;
+    }
+
 </style>
 @endpush
 @push('scripts')
@@ -286,6 +305,9 @@
     const isAgentSelect = document.getElementById('is_agent');
     const isAgentCol = document.getElementById('isAgentCol');
     const agentCol = document.getElementById('agentCol');
+    const genderSelect = document.getElementById('is_gender');
+    const hamilCol = document.getElementById('hamilCol');
+    const isGenderCol = document.getElementById('isGenderCol');
 
     function updateTensi() {
         const sistolik = sistolikInput.value;
@@ -312,30 +334,116 @@
         }
     }
 
+    function toggleGender() {
+        let val = $('#is_gender').val();
+
+        if (val === "P") {
+            // Jika Perempuan tampilkan tes kehamilan
+            $('#isGenderCol').removeClass('col-md-12').addClass('col-md-6');
+            $('#hamilCol').show();
+        } else {
+            // Jika Laki-laki sembunyikan
+            $('#isGenderCol').removeClass('col-md-6').addClass('col-md-12');
+            $('#hamilCol').hide();
+            $('#hamil_id').val(null).trigger('change');
+        }
+    }
+
+    function checkNoTransaksi() {
+        let noTransaksi = $('#no_transaksi').val();
+
+        if (!noTransaksi || noTransaksi.trim() === '') {
+            $('#btnSimpan').prop('disabled', true);
+        } else {
+            $('#btnSimpan').prop('disabled', false);
+        }
+    }
+
     sistolikInput.addEventListener('input', updateTensi);
     diastolikInput.addEventListener('input', updateTensi);
     // panggil pas ganti select
-    $(document).ready(function(){
-        $('#patient_id').select2({
-            theme: "bootstrap-5",
-            dropdownParent: $('#addsuratGenerator'),
-            placeholder: "Cari pasien...",
-            minimumInputLength: 1,
-            width: '100%',
-            ajax: {
-                url: "{{ route('patients.search') }}",
-                dataType: 'json',
-                delay: 250,
-                data: function(params){
-                    return { q: params.term };
-                },
-                processResults: function(data){
-                    return { results: data.results };
+    $(document).ready(function() {
+        $(document).ready(function() {
+
+            $('#patient_id').select2({
+                theme: "bootstrap-5",
+                dropdownParent: $('#addsuratGenerator'),
+                placeholder: "Cari pasien...",
+                minimumInputLength: 1,
+                width: '100%',
+                ajax: {
+                    url: "{{ route('patients.search') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            q: params.term
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: data.results
+                        };
+                    }
                 }
-            }
-        });
-        $('#is_agent').on('change', function() {
-            toggleAgent();
+            });
+
+            $('#patient_id').on('select2:select', function (e) {
+                let data = e.params.data;
+                let patientId = data.id;
+
+                // set gender otomatis
+                if (data.jenis_kelamin == 1) {
+                    $('#is_gender').val('L');
+                } else if (data.jenis_kelamin == 0) {
+                    $('#is_gender').val('P');
+                }
+
+                toggleGender();
+
+                // disable tombol simpan dulu
+                $('#btnSimpan').prop('disabled', true);
+
+                // generate nomor transaksi
+                if (patientId) {
+
+                    $('#no_transaksi').val('Generating...');
+
+                    $.ajax({
+                        url: "{{ route('surat.generateNo', ':id') }}".replace(':id', patientId),
+                        type: 'GET',
+
+                        success: function(response) {
+
+                            $('#no_transaksi').val(response.no_transaksi);
+
+                            if (response.no_transaksi) {
+                                $('#btnSimpan').prop('disabled', false);
+                            }
+
+                        },
+
+                        error: function() {
+
+                            $('#no_transaksi').val('');
+                            $('#btnSimpan').prop('disabled', true);
+
+                            alert('Gagal generate nomor transaksi');
+
+                        }
+                    });
+
+                }
+
+                });
+
+            $('#is_agent').on('change', function() {
+                toggleAgent();
+            });
+
+            $('#is_gender').on('change', function() {
+                toggleGender();
+            });
         });
     });
 
