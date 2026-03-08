@@ -92,6 +92,7 @@
                             <th>Agent</th>
                             <th>No KTP</th>
                             <th>Nama Pasien</th>
+                            <th>Jenis Kelamin</th>
                             <th>Tempat Lahir</th>
                             <th>Tgl Lahir</th>
                             <th>Umur</th>
@@ -264,6 +265,10 @@
         data: 'patient.nama_pasien'
         , name: 'patient.nama_pasien'
         , render: data => data ? data.toUpperCase() : '-'
+    }, {
+        data: 'patient.jenis_kelamin'
+        , name: 'patient.jenis_kelamin'
+        , render: data => data == 1 ? 'LAKI-LAKI' : (data == 0 ? 'PEREMPUAN' : '-')
     }, {
         data: 'patient.tempat_lahir'
         , name: 'patient.tempat_lahir'
