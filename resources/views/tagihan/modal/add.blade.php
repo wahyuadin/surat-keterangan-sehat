@@ -18,11 +18,11 @@
                             $maxDate = $now->format('Y-m-d');
                             $minDate = $lastMonth->format('Y-m-d');
                             @endphp
-                            <input type="date" id="tgl_mulai" name="tgl_mulai" class="form-control" value="{{ $minDate }}" min="{{ $minDate }}" max="{{ $maxDate }}" required>
+                            <input type="date" id="tgl_mulai" name="tgl_mulai" class="form-control" value="{{ $minDate }}" max="{{ $maxDate }}" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="tgl_sampai" class="form-label">Sampai <span class="text-danger">*</span></label>
-                            <input type="date" id="tgl_sampai" name="tgl_sampai" class="form-control" value="{{ now()->format('Y-m-d') }}" min="{{ $minDate }}" max="{{ now()->format('Y-m-d') }}" required>
+                            <input type="date" id="tgl_sampai" name="tgl_sampai" class="form-control" value="{{ now()->format('Y-m-d') }}" max="{{ now()->format('Y-m-d') }}" required>
                         </div>
                         <!-- Customer -->
                         <div class="col-md-6 mb-3">

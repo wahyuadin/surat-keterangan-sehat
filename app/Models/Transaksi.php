@@ -39,22 +39,16 @@ class Transaksi extends Model implements Auditable
         return $this->belongsTo(Agent::class, 'agent_id')->withTrashed();
     }
 
-    public static function showData($clinicId = null)
+    public static function showData($id = null)
     {
-        $query = self::with([
-            'patient.clinic',
-            'patient.customer',
-            'paramedis',
-            'agent',
-        ]);
+        $query = self::with('patient.clinic', 'patient.customer', 'paramedis', 'agent');
 
-        if ($clinicId) {
-            $query->whereHas('patient', function ($q) use ($clinicId) {
-                $q->where('clinic_id', $clinicId);
+        if ($id) {
+            $query->whereHas('patient.clinic', function ($q) use ($id) {
+                $q->where('id', $id);
             });
         }
-
-        return $query->latest();
+        return $query->latest('transaksis.created_at');
     }
 
     public static function showDataCustomer($customerId = null)
@@ -81,7 +75,7 @@ class Transaksi extends Model implements Auditable
         $model->auditEvent = 'created';
         $model->isCustomEvent = true;
         $model->auditCustomNew = [
-            'print' => 'User dengan atas nama '.Auth::user()->nama.' Telah membuat surat SKD',
+            'print' => 'User dengan atas nama ' . Auth::user()->nama . ' Telah membuat surat SKD',
             'tanggal' => \Carbon\Carbon::now(),
             'data' => $data,
         ];
@@ -112,7 +106,7 @@ class Transaksi extends Model implements Auditable
         $model->auditEvent = 'Monitoring Print';
         $model->isCustomEvent = true;
         $model->auditCustomNew = [
-            'print' => 'User dengan atas nama '.Auth::user()->nama.' Telah membuat surat SKD',
+            'print' => 'User dengan atas nama ' . Auth::user()->nama . ' Telah membuat surat SKD',
             'tanggal' => \Carbon\Carbon::now(),
         ];
         Event::dispatch(AuditCustom::class, [$model]);

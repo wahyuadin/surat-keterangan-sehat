@@ -49,15 +49,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/generate-no-transaksi/patient/{patient_id}', [SuratGeneratorController::class, 'generateNoTransaksi'])->name('surat.generateNo');
         Route::get('/generate-no-tagihan/{clinic_id}', [TagihanController::class, 'generateNoTagihan'])->name('generate.no.tagihan');
         Route::get('get-agent/{customer_id}/{clinic_id}', [AgentController::class, 'getAgent'])->name('get-agent');
-    });
-
-    // ========
-    // routes/web.php
-    Route::get('get-patients', [TagihanController::class, 'getPatients'])->name('tagihan.getPatients');
-    Route::prefix('excel')->group(function () {
-        Route::prefix('user')->group(function () {
-            Route::post('/', [UserDataController::class, 'importExcel'])->name('user-data.import-excel');
-            Route::get('export', [UserDataController::class, 'templateExcel'])->name('user-data.template-excel');
+        Route::get('get-patients', [TagihanController::class, 'getPatients'])->name('tagihan.getPatients');
+        Route::prefix('excel')->group(function () {
+            Route::prefix('user')->group(function () {
+                Route::post('/', [UserDataController::class, 'importExcel'])->name('user-data.import-excel');
+                Route::get('export', [UserDataController::class, 'templateExcel'])->name('user-data.template-excel');
+            });
         });
     });
     Route::delete('user-data.bulk-delete', [UserDataController::class, 'bulkDelete'])->name('user-data.bulk-delete');
