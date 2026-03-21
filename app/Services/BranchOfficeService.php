@@ -48,12 +48,12 @@ class BranchOfficeService
         try {
             Branch::hapusData($id);
             toastify()->success('Data Berhasil Dihapus.');
-            return redirect()->route('branch-office.index');
             DB::commit();
+            return redirect()->route('branch-office.index');
         } catch (\Throwable $th) {
             toastify()->error('Error, ' . $th);
-            return redirect()->back();
             DB::rollback();
+            return redirect()->back();
         }
     }
 }
