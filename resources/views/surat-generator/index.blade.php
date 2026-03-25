@@ -299,6 +299,10 @@
     let table = $('#example').DataTable({
         processing: true,
         serverSide: true,
+        lengthMenu: [
+                    [10, 50, 100, -1],
+                    [10, 50, 100, 'All']
+                ],
         ajax: {
             url: "{{ route('surat.data') }}",
             data: d => {
