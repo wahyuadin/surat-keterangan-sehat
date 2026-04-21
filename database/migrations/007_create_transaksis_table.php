@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('suhu')->nullable();
             $table->string('saturnasi')->nullable();
             $table->string('denyutnadi')->nullable();
+            $table->string('visus')->nullable();
             $table->string('foto');
             $table->string('tes_kehamilan')->nullable();
             $table->enum('gol_darah', ['A', 'B', 'O', 'AB', '-']);

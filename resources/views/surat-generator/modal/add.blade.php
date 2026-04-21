@@ -119,8 +119,8 @@
                         <div class="col-md-4 mb-3">
                             <label for="suhu" class="form-label">Suhu <span class="text-danger">*</span></label>
                             <div class="input-group">
-                                <input type="text" name="suhu" class="form-control" placeholder="Masukkan Suhu" value="{{ old('suhu') }}">
-                                <span class="input-group-text">C</span>
+                                <input type="text" name="suhu" class="form-control" placeholder="Masukkan Suhu" value="{{ old('suhu') }}" required>
+                                <span class="input-group-text">°C</span>
                             </div>
                         </div>
                     </div>
@@ -128,7 +128,7 @@
                         <div class="col-md-4 mb-3">
                             <label for="tinggi_badan" class="form-label">Tinggi Badan <span class="text-danger">*</span></label>
                             <div class="input-group">
-                                <input type="number" name="tinggi_badan" class="form-control" placeholder="Masukkan Tinggi Badan" value="{{ old('tinggi_badan') }}">
+                                <input type="number" name="tinggi_badan" class="form-control" placeholder="Masukkan Tinggi Badan" value="{{ old('tinggi_badan') }}" required>
                                 <span class="input-group-text">cm</span>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                         <div class="col-md-4 mb-3">
                             <label for="berat_badan" class="form-label">Berat Badan <span class="text-danger">*</span></label>
                             <div class="input-group">
-                                <input type="number" name="berat_badan" class="form-control" placeholder="Masukkan Berat Badan" value="{{ old('berat_badan') }}">
+                                <input type="number" name="berat_badan" class="form-control" placeholder="Masukkan Berat Badan" value="{{ old('berat_badan') }}" required>
                                 <span class="input-group-text">kg</span>
                             </div>
                         </div>
@@ -156,14 +156,20 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="saturnasi" class="form-label">Saturasi <span class="text-danger">*</span></label>
+                        <div class="col-md-4 mb-3">
+                            <label for="saturnasi" class="form-label">Saturasi</label>
                             <input type="number" name="saturnasi" class="form-control" placeholder="Masukkan Saturnasi" value="{{ old('saturnasi') }}">
+                            <small><i>*Jika tidak diperlukan, tidak perlu diisi.</i></small>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="visus" class="form-label">Visus</label>
+                            <input type="text" name="visus" class="form-control" placeholder="Masukan Visus" value="{{ old('visus') }}">
+                            <small><i>*Jika tidak diperlukan, tidak perlu diisi.</i></small>
                         </div>
 
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <label for="denyutnadi" class="form-label">Denyut Nadi <span class="text-danger">*</span></label>
-                            <input type="number" name="denyutnadi" class="form-control" placeholder="Masukkan Denyut Nadi" value="{{ old('denyutnadi') }}">
+                            <input type="number" name="denyutnadi" class="form-control" placeholder="Masukkan Denyut Nadi" value="{{ old('denyutnadi') }}" required>
                         </div>
 
                     </div>
@@ -366,21 +372,21 @@
         $(document).ready(function() {
 
             $('#patient_id').select2({
-                theme: "bootstrap-5",
-                dropdownParent: $('#addsuratGenerator'),
-                placeholder: "Cari pasien...",
-                minimumInputLength: 1,
-                width: '100%',
-                ajax: {
-                    url: "{{ route('patients.search') }}",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function(params) {
+                theme: "bootstrap-5"
+                , dropdownParent: $('#addsuratGenerator')
+                , placeholder: "Cari pasien..."
+                , minimumInputLength: 0
+                , width: '100%'
+                , ajax: {
+                    url: "{{ route('patients.search') }}"
+                    , dataType: 'json'
+                    , delay: 250
+                    , data: function(params) {
                         return {
-                            q: params.term
+                            q: params.term || ''
                         };
-                    },
-                    processResults: function(data) {
+                    }
+                    , processResults: function(data) {
                         return {
                             results: data.results
                         };
@@ -388,7 +394,7 @@
                 }
             });
 
-            $('#patient_id').on('select2:select', function (e) {
+            $('#patient_id').on('select2:select', function(e) {
                 let data = e.params.data;
                 let patientId = data.id;
 
@@ -410,8 +416,8 @@
                     $('#no_transaksi').val('Generating...');
 
                     $.ajax({
-                        url: "{{ route('surat.generateNo', ':id') }}".replace(':id', patientId),
-                        type: 'GET',
+                        url: "{{ route('surat.generateNo', ':id') }}".replace(':id', patientId)
+                        , type: 'GET',
 
                         success: function(response) {
 
@@ -435,7 +441,7 @@
 
                 }
 
-                });
+            });
 
             $('#is_agent').on('change', function() {
                 toggleAgent();

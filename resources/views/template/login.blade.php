@@ -6,8 +6,8 @@
     <title>{{ config('app.name') . ' | Halaman Login' }}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <meta name="description" content="Sneat is a modern, clean and fully responsive admin template built with Bootstrap 5, Django, HTML, CSS, and JavaScript. It has a huge collection of reusable UI components. It can be used for all types of web applications like custom admin panel, project management system, admin dashboard, Backend application or CRM." />
-    <meta name="keywords" content="django, django admin, dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5" />
+    <meta name="description" content="Aplikasi Surat Keterangan Sehat adalah produk CRM Nayaka yang digunakan untuk meninputan data pasien untuk pemeriksaan fisik." />
+    <meta name="keywords" content="Surat Nayaka, SKS Nayaka, Aplikasi Surat, Nayaka Era Husada, Kesehatan" />
     <!-- Canonical SEO -->
     <link rel="canonical" href="https://wahyuadinugroho.my.id">
     <!-- Favicon -->
@@ -63,7 +63,7 @@
             <!-- /Left Text -->
             <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center p-5">
                 <div class="w-100 d-flex justify-content-center">
-                    <img src="https://www.nayakaerahusada.com/storage/slide/01K1F7KWT8P6P8P1SQRFESXXWB.jpg" class="img-fluid" alt="Login image" width="5000">
+                    <img src="https://www.nayakaerahusada.com/storage/slide/01KNK45SAM9R7ZHS8HG5AFKG0R.jpg" class="img-fluid" alt="Login image" width="5000">
                 </div>
             </div>
             <!-- /Left Text -->
@@ -103,7 +103,7 @@
             <div class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-12 p-6">
                 <div class="w-px-400 mx-auto mt-12 pt-5">
                     <h4 class="mb-1">Klinik Nayaka Husada</h4>
-                    {{-- <p class="mb-6">PT. NAYAKA ERA HUSADA</p> --}}
+                    <!--<p class="mb-6"><i>Sandbox Mode</i></p>-->
                     {{-- <p class="text-medium-emphasis">M Wahyu Adi Nugroho</p> --}}
 
                     <form class="mb-6" action="{{ route('login.store') }}" method="POST">

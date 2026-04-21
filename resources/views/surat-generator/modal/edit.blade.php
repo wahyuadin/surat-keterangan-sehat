@@ -253,7 +253,7 @@
                                 </div>
 
                                 <h6 class="border-bottom pb-2 my-3">Status & Keperluan</h6>
-                                <div class="col-md-6">
+                                <div class="col-md-{{ $surat->visus ? '4' : '6' }}">
                                     <label for="gol_darah" class="form-label">Golongan Darah</label>
                                     <select class="form-select" id="gol_darah" name="gol_darah">
                                         <option value="-" {{ $surat->gol_darah == '-' ? 'selected' : '' }}>-</option>
@@ -263,13 +263,19 @@
                                         <option value="O" {{ $surat->gol_darah == 'O' ? 'selected' : '' }}>O</option>
                                     </select>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-{{ $surat->visus ? '4' : '6' }}">
                                     <label for="buta_warna" class="form-label">Buta Warna</label>
                                     <select class="form-select" id="buta_warna" name="buta_warna">
                                         <option value="0" {{ $surat->buta_warna == 0 ? 'selected' : '' }}>Tidak</option>
                                         <option value="1" {{ $surat->buta_warna == 1 ? 'selected' : '' }}>Ya</option>
                                     </select>
                                 </div>
+                                @if ($surat->visus != null)
+                                <div class="col-md-4">
+                                    <label for="buta_warna" class="form-label">Visus</label>
+                                    <input type="text" class="form-control" id="visus" name="visus" placeholder="Visus" value="{{ $surat->visus ?? '' }}" maxlength="15">
+                                </div>
+                                @endif
                                 <div class="col-md-6">
                                     <label for="pendengaran" class="form-label">Pendengaran</label>
                                     <select class="form-select" id="pendengaran" name="pendengaran">
@@ -294,7 +300,7 @@
                                 <h6 class="border-bottom pb-2 my-3">Pembayaran</h6>
                                 <div class="col-md-12">
                                     <label for="is_bayar" class="form-label">Status Pembayaran</label>
-                                    <select class="form-select" id="is_bayar" name="is_bayar">
+                                    <select class="form-select" id="is_bayar" name="is_bayar" {{ $surat->is_bayar ? 'disabled' : '' }}>
                                         <option value="0" {{ $surat->is_bayar == 0 ? 'selected' : '' }}>Menunggu Transaksi</option>
                                         <option value="1" {{ $surat->is_bayar == 1 ? 'selected' : '' }}>Lunas</option>
                                     </select>

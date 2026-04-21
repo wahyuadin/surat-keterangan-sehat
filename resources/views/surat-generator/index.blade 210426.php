@@ -113,7 +113,6 @@
                             <th>Denyut Nadi</th>
                             <th>Gol Darah</th>
                             <th>Buta Warna</th>
-                            <th>Visus</th>
                             <th>Pendengaran</th>
                             <th>Status Kesehatan</th>
                             <th>Keperluan</th>
@@ -237,7 +236,6 @@
         { data: 'denyutnadi', name: 'transaksis.denyutnadi', render: data => data + " BPM" },
         { data: 'gol_darah', name: 'transaksis.gol_darah' },
         { data: 'buta_warna', name: 'transaksis.buta_warna', render: data => data == 1 ? 'YA' : (data == 0 ? 'TIDAK' : '-') },
-        { data: 'visus', name: 'transaksis.visus',  render: data => data ? data.toUpperCase() : '-' },
         { data: 'pendengaran', name: 'transaksis.pendengaran', render: data => data == 1 ? 'RESPON' : (data == 0 ? 'KURANG RESPON' : '-') },
         { data: 'status_kesehatan', name: 'transaksis.status_kesehatan', render: data => data == 1 ? 'SEHAT' : (data == 0 ? 'KURANG SEHAT' : '-') },
         { data: 'keperluan', name: 'transaksis.keperluan', render: data => data ? data.toUpperCase() : '-' },
@@ -410,46 +408,27 @@
     const btnSimpan = document.getElementById('btnSimpan');
     let stream = null;
 
-    // 🔹 Nyalakan kamera
     async function startCamera() {
         if (stream) return;
         try {
-            stream = await navigator.mediaDevices.getUserMedia({
-                video: {
-                    facingMode: "user"
-                }
-            });
+            stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
             video.srcObject = stream;
-            video.style.display = "block";
-            preview.style.display = "none";
-            snap.style.display = "inline-block";
-            retake.style.display = "none";
-            btnSimpan.disabled = true;
-        } catch (err) {
-            console.error("Gagal akses kamera:", err);
-            alert("Tidak dapat mengakses kamera. Pastikan izin kamera aktif atau pilih upload manual.");
-            switchToUpload(); // fallback otomatis ke upload
-        }
+            video.style.display = "block"; preview.style.display = "none";
+            snap.style.display = "inline-block"; retake.style.display = "none";
+        } catch (err) { alert("Gagal akses kamera."); }
     }
 
-    // 🔹 Matikan kamera
     function stopCamera() {
-        if (stream) {
-            stream.getTracks().forEach(track => track.stop());
-            stream = null;
-        }
-        video.srcObject = null;
-        video.style.display = "none";
+        if (stream) { stream.getTracks().forEach(track => track.stop()); stream = null; }
+        video.srcObject = null; video.style.display = "none";
     }
 
-    // 🔹 Modal buka/tutup
     const modalEl = document.getElementById('addsuratGenerator');
     if (modalEl) {
         modalEl.addEventListener('shown.bs.modal', startCamera);
         modalEl.addEventListener('hidden.bs.modal', stopCamera);
     }
 
-    // 🔹 Ambil foto
     snap?.addEventListener("click", () => {
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
@@ -492,61 +471,34 @@
         snap.style.display = "none";
     });
 
-    // 🔹 Ambil ulang foto
     retake?.addEventListener("click", () => {
-        preview.style.display = "none";
-        gambarInput.value = "";
-        btnSimpan.disabled = true;
-        startCamera();
+        preview.style.display = "none"; gambarInput.value = ""; btnSimpan.disabled = true; startCamera();
     });
 
-    // === 🔹 Pilihan Kamera / Upload ===
-    const btnUseCamera = document.getElementById('btnUseCamera');
-    const btnUseUpload = document.getElementById('btnUseUpload');
-    const cameraSection = document.getElementById('cameraSection');
-    const uploadSection = document.getElementById('uploadSection');
     const uploadFoto = document.getElementById('uploadFoto');
-    const previewUpload = document.getElementById('previewUpload');
-
-    function switchToCamera() {
-        btnUseCamera?.classList.add('active');
-        btnUseUpload?.classList.remove('active');
-        cameraSection.style.display = 'block';
-        uploadSection.style.display = 'none';
-        gambarInput.value = '';
-        previewUpload.style.display = 'none';
-        btnSimpan.disabled = true;
-        startCamera();
-    }
-
-    function switchToUpload() {
-        btnUseUpload?.classList.add('active');
-        btnUseCamera?.classList.remove('active');
-        uploadSection.style.display = 'block';
-        cameraSection.style.display = 'none';
-        stopCamera();
-        gambarInput.value = '';
-        preview.style.display = 'none';
-        btnSimpan.disabled = true;
-    }
-
-    btnUseCamera?.addEventListener('click', switchToCamera);
-    btnUseUpload?.addEventListener('click', switchToUpload);
-
-    // 🔹 Upload Foto Manual
     uploadFoto?.addEventListener('change', function() {
         const file = this.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function(e) {
-                previewUpload.src = e.target.result;
-                previewUpload.style.display = 'block';
-                gambarInput.value = e.target.result;
-                btnSimpan.disabled = false;
+            reader.onload = e => {
+                document.getElementById('previewUpload').src = e.target.result;
+                document.getElementById('previewUpload').style.display = 'block';
+                gambarInput.value = e.target.result; btnSimpan.disabled = false;
             };
             reader.readAsDataURL(file);
         }
     });
+
+    function switchToCamera() {
+        document.getElementById('cameraSection').style.display = 'block';
+        document.getElementById('uploadSection').style.display = 'none';
+        startCamera();
+    }
+    function switchToUpload() {
+        document.getElementById('uploadSection').style.display = 'block';
+        document.getElementById('cameraSection').style.display = 'none';
+        stopCamera();
+    }
 </script>
 @endpush
 @endsection

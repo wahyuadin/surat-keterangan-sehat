@@ -29,7 +29,7 @@ class SuratGeneratorService
                 ->scale(width: 800)
                 ->toWebp(70);
 
-            $imageName = 'registration/' . uniqid() . '.webp';
+            $imageName = 'registration/'.uniqid().'.webp';
 
             Storage::disk('public')->put($imageName, $img);
 
@@ -60,7 +60,7 @@ class SuratGeneratorService
 
             return redirect()->route('surat.index');
         } catch (\Throwable $th) {
-            toastify()->error('Error, ' . $th);
+            toastify()->error('Error, '.$th);
 
             return redirect()->back();
             DB::rollback();
@@ -81,7 +81,7 @@ class SuratGeneratorService
                     ->scale(width: 800)
                     ->toWebp(70);
 
-                $imageName = 'registration/' . uniqid() . '.webp';
+                $imageName = 'registration/'.uniqid().'.webp';
 
                 Storage::disk('public')->put($imageName, $img);
 
@@ -94,7 +94,7 @@ class SuratGeneratorService
                 $img = $manager->read($file->getPathname())
                     ->scale(width: 800)
                     ->toWebp(70);
-                $imageName = 'registration/' . uniqid() . '.webp';
+                $imageName = 'registration/'.uniqid().'.webp';
                 Storage::disk('public')->put($imageName, $img);
 
                 $request->merge([
@@ -121,7 +121,7 @@ class SuratGeneratorService
             return redirect()->route('surat.index');
         } catch (\Throwable $th) {
             DB::rollBack();
-            toastify()->error('Error: ' . $th->getMessage());
+            toastify()->error('Error: '.$th->getMessage());
 
             return redirect()->back();
         }
@@ -137,7 +137,7 @@ class SuratGeneratorService
 
             return redirect()->route('surat.index');
         } catch (\Throwable $th) {
-            toastify()->error('Error, ' . $th);
+            toastify()->error('Error, '.$th);
             DB::rollback();
 
             return redirect()->back();
@@ -152,11 +152,11 @@ class SuratGeneratorService
             $pdf = Pdf::loadView('surat-generator.pdf', ['data' => $result])->setPaper([0, 0, 419.53, 595.28], 'portrait');
             DB::commit();
 
-            return $pdf->stream($result['patient']['nama_pasien'] . '_' . $result['patient']['no_ktp'] . '_' . $result['tgl_transaksi'] . '.pdf');
+            return $pdf->stream($result['patient']['nama_pasien'].'_'.$result['patient']['no_ktp'].'_'.$result['tgl_transaksi'].'.pdf');
             // toastify()->success('Data Berhasil Ditambahlan.');
             // return redirect()->route('surat.index');
         } catch (\Throwable $th) {
-            toastify()->error('Error, ' . $th);
+            toastify()->error('Error, '.$th);
 
             return redirect()->back();
             DB::rollback();
@@ -202,10 +202,10 @@ class SuratGeneratorService
             $query->whereBetween('transaksis.tgl_transaksi', [$request->dari, $request->sampai]);
             $query->when(
                 $request->agent_id && $request->agent_id !== 'without' && $request->agent_id !== 'all',
-                fn($q) => $q->where('agent_id', $request->agent_id)
+                fn ($q) => $q->where('agent_id', $request->agent_id)
             )->when(
                 $request->agent_id === 'without',
-                fn($q) => $q->whereNull('agent_id')
+                fn ($q) => $q->whereNull('agent_id')
             );
         }
 
@@ -215,9 +215,9 @@ class SuratGeneratorService
                 return Carbon::parse($row->created_at)->locale('id')->isoFormat('D MMMM Y HH:mm');
             })
 
-            ->addColumn('clinic', fn($row) => $row->patient?->clinic?->nama_klinik ?? '-')
-            ->addColumn('customer', fn($row) => $row->patient?->customer?->nama_perusahaan ?? '-')
-            ->addColumn('paramedis', fn($row) => $row->paramedis?->nama ?? '-')
+            ->addColumn('clinic', fn ($row) => $row->patient?->clinic?->nama_klinik ?? '-')
+            ->addColumn('customer', fn ($row) => $row->patient?->customer?->nama_perusahaan ?? '-')
+            ->addColumn('paramedis', fn ($row) => $row->paramedis?->nama ?? '-')
             ->toJson();
     }
 
@@ -230,7 +230,7 @@ class SuratGeneratorService
     {
         // $data = Clinic::where('id', Auth::user()->clinic_id)->first();
         return Word::template(asset('storage/word/skd.docx'))
-            ->download(now()->format('d-m-Y_His') . 'template.docx');
+            ->download(now()->format('d-m-Y_His').'template.docx');
     }
 
     public function search($request)
@@ -248,7 +248,8 @@ class SuratGeneratorService
                         ->orWhere('no_ktp', 'like', "%$search%");
                 });
             })
-            ->limit(20)
+            ->limit(10)
+            ->latest()
             ->get();
 
         $data = [];
@@ -256,7 +257,7 @@ class SuratGeneratorService
         foreach ($patients as $patient) {
             $data[] = [
                 'id' => $patient->id,
-                'text' => '[' . strtoupper($patient->no_ktp ?? '-') . '] ' . strtoupper($patient->nama_pasien ?? '-'),
+                'text' => '['.strtoupper($patient->no_ktp ?? '-').'] '.strtoupper($patient->nama_pasien ?? '-'),
                 'jenis_kelamin' => $patient->jenis_kelamin ?? '-',
             ];
         }

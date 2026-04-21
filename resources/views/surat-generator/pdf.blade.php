@@ -262,22 +262,30 @@
             <td class="label">TB/BB</td>
             <td> {{ $data['tinggi_badan'] }} Cm / {{ $data['berat_badan'] }} Kg</td>
         </tr>
+        @if ($data['tensi'] != null)
         <tr>
             <td class="label">Tekanan Darah</td>
             <td> {{ $data['tensi'] }} mmHg</td>
         </tr>
+        @endif
+        @if ($data['suhu'] != null)
         <tr>
             <td class="label">Suhu</td>
-            <td> {{ $data['suhu'] }} �C </td>
+            <td> {{ $data['suhu'] }} °C </td>
         </tr>
+        @endif
+        @if ($data['saturnasi'] != null)
         <tr>
             <td class="label">Saturasi</td>
             <td> {{ $data['saturnasi'] }}%</td>
         </tr>
+        @endif
+        @if ($data['denyutnadi'] != null)
         <tr>
             <td class="label">Denyut Nadi</td>
             <td> {{ $data['denyutnadi'] }} BPM</td>
         </tr>
+        @endif
         <tr>
             <td class="label">Golongan Darah</td>
             <td>
@@ -303,10 +311,10 @@
             <td>@if($data['pendengaran'] == 1) Respon @elseif($data['pendengaran'] == 0) Tidak Respon @else - @endif</td>
         </tr>
         @if ($data['tes_kehamilan'] != null)
-            <tr>
-                <td class="label">Tes Kehamilan</td>
-                <td>{{ ucwords($data['tes_kehamilan'] ?? '-') }}</td>
-            </tr>
+        <tr>
+            <td class="label">Tes Kehamilan</td>
+            <td>{{ ucwords($data['tes_kehamilan'] ?? '-') }}</td>
+        </tr>
         @endif
     </table>
 
