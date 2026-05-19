@@ -41,13 +41,18 @@ Route::middleware(['auth'])->group(function () {
         Route::get('pdf', [SuratGeneratorController::class, 'suratBlangkoPdf'])->name('surat-blangko-pdf');
         Route::get('docx', [SuratGeneratorController::class, 'suratBlangkoDocx'])->name('surat-blangko-word');
     });
+    Route::prefix('import')->group(function () {
+        Route::get('patient/import/template', [PasienController::class, 'downloadTemplate'])->name('patient.template');
+        Route::post('patient/import/preview', [PasienController::class, 'previewImport'])->name('patient.preview');
+        Route::post('patient/import/process', [PasienController::class, 'processImport'])->name('patient.import.process');
+    });
     Route::prefix('server-site')->group(function () {
         Route::get('surat', [SuratGeneratorController::class, 'resultData'])->name('surat.data');
-        Route::get('pasien', [PasienController::class, 'datatable'])->name('patient.datatable');
+        Route::get('patient', [PasienController::class, 'datatable'])->name('patient.datatable');
         Route::get('audit', [Controller::class, 'auditData'])->name('audit.datatable');
-        Route::get('/pasien/search', [SuratGeneratorController::class, 'search'])->name('patients.search');
-        Route::get('/generate-no-transaksi/patient/{patient_id}', [SuratGeneratorController::class, 'generateNoTransaksi'])->name('surat.generateNo');
-        Route::get('/generate-no-tagihan/{clinic_id}', [TagihanController::class, 'generateNoTagihan'])->name('generate.no.tagihan');
+        Route::get('patient/search', [SuratGeneratorController::class, 'search'])->name('patients.search');
+        Route::get('generate-no-transaksi/patient/{patient_id}', [SuratGeneratorController::class, 'generateNoTransaksi'])->name('surat.generateNo');
+        Route::get('generate-no-tagihan/{clinic_id}', [TagihanController::class, 'generateNoTagihan'])->name('generate.no.tagihan');
         Route::get('get-agent/{customer_id}/{clinic_id}', [AgentController::class, 'getAgent'])->name('get-agent');
         Route::get('get-patients', [TagihanController::class, 'getPatients'])->name('tagihan.getPatients');
         Route::prefix('excel')->group(function () {
