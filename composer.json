@@ -1,4 +1,10 @@
 {
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packagist.org"
+        }
+    ],
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
@@ -19,7 +25,6 @@
         "novay/laravel-word-template": "^2.0",
         "owen-it/laravel-auditing": "13.2",
         "predis/predis": "^3.2",
-        "realrashid/sweet-alert": "^7.3",
         "redot/laravel-toastify": "^1.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "yajra/laravel-datatables-oracle": "^10"

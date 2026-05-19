@@ -35,7 +35,7 @@ class PasienController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'no_ktp' => 'required|unique:patients,no_ktp,NULL,id,clinic_id,'.$request->clinic_id,
+            'no_ktp' => 'required|unique:patients,no_ktp,NULL,id,clinic_id,' . $request->clinic_id,
         ], [
             'no_ktp' => 'No KTP sudah terdaftar di klinik ini.',
         ]);
@@ -111,15 +111,11 @@ class PasienController extends Controller
             }
 
             return response()->json($data);
-
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Gagal membaca file: '.$e->getMessage()], 500);
+            return response()->json(['message' => 'Gagal membaca file: ' . $e->getMessage()], 500);
         }
     }
 
-    /**
-     * Memproses mapping dan menyimpan data ke database
-     */
     public function processImport(Request $request)
     {
         $request->validate([
@@ -138,9 +134,17 @@ class PasienController extends Controller
             }
 
             return response()->json($result);
-
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Gagal menyimpan data: '.$e->getMessage()], 500);
+            return response()->json(['error' => 'Gagal menyimpan data: ' . $e->getMessage()], 500);
         }
+    }
+
+    public function downloadErrorLog($filename)
+    {
+        $path = storage_path('app/public/temp_errors/' . $filename);
+        if (file_exists($path)) {
+            return response()->download($path)->deleteFileAfterSend(true);
+        }
+        return abort(404, 'File error log tidak ditemukan atau sudah kadaluarsa.');
     }
 }

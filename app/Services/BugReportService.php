@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\BugReport;
+use App\Models\BugReportReply;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -16,19 +17,70 @@ class BugReportService
             $user = Auth::user();
             $data['pelapor'] = $user->nama ?? 'unknown';
             $data['user_id'] = $user->id ?? null;
+            $data['status'] = 'open'; // Default tiket baru adalah open
+
             if ($request->hasFile('foto')) {
-                $file = $request->file('foto');
-                $path = $file->store('foto', 'public');
-                $data['foto'] = $path;
+                $data['foto'] = $request->file('foto')->store('foto', 'public');
             }
-            BugReport::tambahData($data);
+
+            BugReport::create($data); // Gunakan standard eloquent
+
             DB::commit();
-            toastify()->success('Data Berhasil Ditambahkan.');
+            toastify()->success('Tiket berhasil dibuat.');
             return redirect()->route('bug-report.index');
         } catch (\Throwable $th) {
-            toastify()->error('Error, ' . $th);
+            DB::rollback(); // Rollback HARUS sebelum return
+            // Log::error('Gagal tambah tiket: ' . $th->getMessage());
+            toastify()->error('Terjadi kesalahan sistem.');
             return redirect()->back();
+        }
+    }
+
+    public function tambahKomentar($request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $reply = BugReportReply::create([
+                'bug_report_id' => $id,
+                'user_id' => Auth::id(),
+                'pesan' => $request->pesan,
+            ]);
+
+            DB::commit();
+
+            // Jika dikirim via AJAX, berikan balasan JSON
+            if ($request->ajax()) {
+                return response()->json(['success' => true]);
+            }
+
+            toastify()->success('Pesan terkirim.');
+            return redirect()->back();
+        } catch (\Throwable $th) {
             DB::rollback();
+
+            if ($request->ajax()) {
+                return response()->json(['success' => false, 'message' => 'Gagal mengirim pesan'], 500);
+            }
+
+            toastify()->error('Gagal mengirim pesan.');
+            return redirect()->back();
+        }
+    }
+
+    public function ubahStatus($statusBaru, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $tiket = BugReport::findOrFail($id);
+            $tiket->update(['status' => $statusBaru]);
+
+            DB::commit();
+            toastify()->success("Status tiket diubah menjadi " . strtoupper($statusBaru));
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            toastify()->error('Gagal mengubah status.' . $th->getMessage());
+            return redirect()->back();
         }
     }
 
@@ -46,8 +98,8 @@ class BugReportService
             return redirect()->route('bug-report.index');
         } catch (\Throwable $th) {
             toastify()->error('Error, ' . $th);
-            return redirect()->back();
             DB::rollback();
+            return redirect()->back();
         }
     }
 
@@ -61,8 +113,8 @@ class BugReportService
             return redirect()->route('bug-report.index');
         } catch (\Throwable $th) {
             toastify()->error('Error, ' . $th);
-            return redirect()->back();
             DB::rollback();
+            return redirect()->back();
         }
     }
 
@@ -80,8 +132,8 @@ class BugReportService
             return redirect()->route('bug-report.index');
         } catch (\Throwable $th) {
             toastify()->error('Error, ' . $th);
-            return redirect()->back();
             DB::rollback();
+            return redirect()->back();
         }
     }
 
@@ -97,8 +149,8 @@ class BugReportService
             return redirect()->route('bug-report.index');
         } catch (\Throwable $th) {
             toastify()->error('Error, ' . $th);
-            return redirect()->back();
             DB::rollback();
+            return redirect()->back();
         }
     }
 }

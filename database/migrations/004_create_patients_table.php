@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('pekerjaan')->nullable();
             $table->boolean('jenis_kelamin');
             $table->text('alamat')->nullable();
-            $table->string('telp')->nullable();
+            $table->bigInteger('telp')->nullable();
             $table->string('created_by')->nullable();
             $table->timestamps();
             $table->softDeletes();

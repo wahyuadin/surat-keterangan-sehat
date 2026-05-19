@@ -15,12 +15,12 @@
                         <textarea name="deskripsi" class="form-control" rows="5" required>{{ old('deskripsi') }}</textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="nama_pasien" class="form-label">Screenshot <span class="text-danger">*</span></label>
+                        <label for="nama_pasien" class="form-label">Screenshot <span class="text-secondary">*</span></label>
                         <div id="preview-container" style="margin-top:10px;">
                             <img id="preview" src="" alt="Preview Gambar" style="max-width:200px; display:none; border-radius:8px;">
-                            <p id="error-msg" style="color:red; font-size:14px; display:none;"></p>
+                            <p id="error-msg" style="color: red; font-size:14px; display:none;"></p>
                         </div>
-                        <input class="form-control" type="file" name="foto" id="image" accept="image/*" required>
+                        <input class="form-control" type="file" name="foto" id="image" accept="image/*">
                         <small class="text-muted">Ukuran maksimal file: 1MB</small>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ services:
     image: dunglas/frankenphp
     container_name: frankenphp
     ports:
-      - "8080:80" # Akses dari http://localhost:8080
+      - "8080:80"
     volumes:
       - ./:/app
     working_dir: /app/public

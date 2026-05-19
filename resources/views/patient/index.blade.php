@@ -201,8 +201,6 @@
         location.reload();
     });
 
-
-    // OPEN DELETE MODAL
     $(document).on("click", ".deleteBtn", function() {
         $("#delete_id").val($(this).data('id'));
         $("#modalDelete").modal("show");

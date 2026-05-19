@@ -16,11 +16,26 @@ class FormController extends Controller
     public function index()
     {
         return response()->json([
-            "success"   => true,
+            "code"      => 404,
+            "method" => request()->method(),
             "data"      => [
-                "permition" => false,
-                "massage"   => 'authorized'
-            ]
+                "massage"   => [
+                    "en" => "You don't have permission to access this resource.",
+                    "id" => "Anda tidak memiliki izin untuk mengakses.",
+                    "jp" => "このリソースにアクセスする権限がありません。",
+                    "sp" => "No tienes permiso para acceder a este recurso.",
+                    "ar" => "ليس لديك إذن للوصول إلى هذا المورد.",
+                ],
+                "apps" => [
+                    "name" => config('app.name'),
+                    "version" => config('app.version'),
+                ]
+            ],
+            "ip" => request()->ip(),
+            "url" => request()->fullUrl(),
+            "device" => request()->header('User-Agent'),
+            "timestamp" => now()->toDateTimeString(),
+            "hit" => request()->server('REQUEST_TIME_FLOAT'),
         ], 404);
     }
 
@@ -77,8 +92,8 @@ class FormController extends Controller
             return view('form-public.success', ['slug' => $request->slug]);
         } catch (\Throwable $th) {
             toastify()->error('Error, ' . $th);
-            return redirect()->back();
             DB::rollback();
+            return redirect()->back();
         }
     }
 

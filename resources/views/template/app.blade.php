@@ -61,7 +61,6 @@ $user = json_decode(Cookie::get('user_data'), true);
 </head>
 
 <body>
-    @include('sweetalert::alert')
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">

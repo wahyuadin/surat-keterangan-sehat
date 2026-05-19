@@ -34,17 +34,21 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('surat', SuratGeneratorController::class);
     Route::resource('tagihan', TagihanController::class);
     Route::resource('bug-report', BugReportController::class);
-    Route::put('bug-report-accept/{id}', [BugReportController::class, 'accept'])->name('bug-report-accept');
-    Route::put('bug-report-reject/{id}', [BugReportController::class, 'reject'])->name('bug-report-reject');
+    Route::post('bug-report/{id}/reply', [BugReportController::class, 'reply'])->name('bug-report.reply');
+    Route::get('bug-report/{id}/replies', [BugReportController::class, 'getReplies'])->name('bug-report.get-replies');
+    Route::patch('bug-report/{id}/status', [BugReportController::class, 'updateStatus'])->name('bug-report.update-status');
     Route::get('audit', [Controller::class, 'auditable'])->name('audit');
     Route::prefix('surat-blangko')->group(function () {
         Route::get('pdf', [SuratGeneratorController::class, 'suratBlangkoPdf'])->name('surat-blangko-pdf');
         Route::get('docx', [SuratGeneratorController::class, 'suratBlangkoDocx'])->name('surat-blangko-word');
     });
     Route::prefix('import')->group(function () {
-        Route::get('patient/import/template', [PasienController::class, 'downloadTemplate'])->name('patient.template');
-        Route::post('patient/import/preview', [PasienController::class, 'previewImport'])->name('patient.preview');
-        Route::post('patient/import/process', [PasienController::class, 'processImport'])->name('patient.import.process');
+        Route::prefix('patient')->group(function () {
+            Route::get('import/template', [PasienController::class, 'downloadTemplate'])->name('patient.template');
+            Route::post('import/preview', [PasienController::class, 'previewImport'])->name('patient.preview');
+            Route::post('import/process', [PasienController::class, 'processImport'])->name('patient.import.process');
+            Route::get('import/error-log/{filename}', [PasienController::class, 'downloadErrorLog'])->name('patient.import.error_log');
+        });
     });
     Route::prefix('server-site')->group(function () {
         Route::get('surat', [SuratGeneratorController::class, 'resultData'])->name('surat.data');

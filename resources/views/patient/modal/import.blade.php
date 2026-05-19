@@ -40,7 +40,7 @@
                                 <small class="text-muted">Unduh template agar sesuai database</small>
                             </div>
                         </div>
-                        <a href="{{ route('patient.template') }}" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-medium" style="z-index: 11;">
+                        <a href="{{ route('patient.template') }}" id="btnDownloadTemplate" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-medium" style="z-index: 11;">
                             <i class='bx bx-download'></i> Unduh
                         </a>
                     </div>
@@ -61,47 +61,51 @@
 
 <div class="modal fade" id="previewImportModal" tabindex="-1" aria-labelledby="previewImportModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 1rem;">
+
+        <!-- PERBAIKAN: Tag form digabungkan dengan class modal-content -->
+        <form id="formProsesImport" class="modal-content border-0 shadow-lg" style="border-radius: 1rem;">
+
             <div class="modal-header border-0 pb-0 mt-2 px-4">
                 <h5 class="modal-title fw-bold" id="previewImportModalLabel">Preview & Mapping Kolom</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form id="formProsesImport">
-                <div class="modal-body px-4 py-4">
-                    <p>Cocokkan kolom dari file Excel Anda (baris abu-abu) dengan kolom di Database pada menu *dropdown*. Pastikan kolom wajib seperti <strong>Nama Pasien</strong> dan <strong>No KTP</strong> terpilih.</p>
+            <div class="modal-body px-4 py-4">
+                <p>Cocokkan kolom dari file Excel Anda (baris abu-abu) dengan kolom di Database pada menu *dropdown*. Pastikan kolom wajib seperti <strong>Nama Pasien</strong> dan <strong>No KTP</strong> terpilih.</p>
 
-                    <!-- Tempat Tabel Preview Dirender oleh JS -->
-                    <div class="table-responsive border rounded-3">
-                        <table class="table table-bordered table-hover mb-0 align-middle" id="tablePreview">
-                            <thead class="table-light">
-                                <tr id="rowExcelHeaders">
-                                    <!-- Header Excel masuk sini -->
-                                </tr>
-                                <tr id="rowMappingSelects">
-                                    <!-- Dropdown Mapping masuk sini -->
-                                </tr>
-                            </thead>
-                            <tbody id="bodyPreviewData">
-                                <!-- Data Excel 5 baris pertama masuk sini -->
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Input hidden untuk menampung path file yang akan di proses pada tahap final -->
-                    <input type="hidden" id="temp_file_path" name="temp_file_path">
+                <!-- Tempat Tabel Preview Dirender oleh JS -->
+                <div class="table-responsive border rounded-3">
+                    <table class="table table-bordered table-hover mb-0 align-middle" id="tablePreview">
+                        <thead class="table-light">
+                            <tr id="rowExcelHeaders">
+                                <!-- Header Excel masuk sini -->
+                            </tr>
+                            <tr id="rowMappingSelects">
+                                <!-- Dropdown Mapping masuk sini -->
+                            </tr>
+                        </thead>
+                        <tbody id="bodyPreviewData">
+                            <!-- Data Excel 5 baris pertama masuk sini -->
+                        </tbody>
+                    </table>
                 </div>
 
-                <div class="modal-footer border-0 px-4 pb-4 pt-0 justify-content-between">
-                    <button type="button" class="btn btn-light text-muted px-4 rounded-pill" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success px-4 rounded-pill d-flex align-items-center" id="btnProsesImport">
-                        <i class='bx bx-save me-2'></i> Proses Import Sekarang
-                    </button>
-                </div>
-            </form>
-        </div>
+                <!-- Input hidden untuk menampung path file yang akan di proses pada tahap final -->
+                <input type="hidden" id="temp_file_path" name="temp_file_path">
+            </div>
+
+            <div class="modal-footer border-0 px-4 pb-4 pt-0 justify-content-between">
+                <button type="button" class="btn btn-light text-muted px-4 rounded-pill" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-success px-4 rounded-pill d-flex align-items-center" id="btnProsesImport">
+                    <i class='bx bx-save me-2'></i> Proses Import Sekarang
+                </button>
+            </div>
+
+        </form>
+
     </div>
 </div>
+
 @push('style')
 <style>
     /* Styling khusus untuk area upload agar elegan dan modern */
@@ -147,7 +151,50 @@
 
 @push('scripts')
 <script>
-    function showError(message) {
+    $('#btnDownloadTemplate').on('click', function(e) {
+        e.preventDefault();
+
+        let btn = $(this);
+        let url = btn.attr('href');
+        let originalHtml = btn.html();
+
+        btn.html(`<i class='bx bx-loader-alt bx-spin'></i> Menyiapkan...`);
+        btn.addClass('disabled').css('pointer-events', 'none');
+
+        setTimeout(function() {
+            window.location.href = url;
+            setTimeout(function() {
+                btn.html(originalHtml);
+                btn.removeClass('disabled').css('pointer-events', 'auto');
+            }, 1000);
+
+        }, 1000);
+    });
+    function notify(message, status) {
+        let style = {};
+
+        if (status === "success") {
+            style = {
+                color: "#fff",
+                background: "linear-gradient(to right, #00b09b, #96c93d)",
+                borderRadius: "0.5rem",
+            };
+        } else if (status === "warning") {
+            style = {
+                color: "#fff",
+                background: "#f59e0b",
+                borderRadius: "0.5rem",
+                boxShadow: "0 0 10px rgba(245, 158, 11, 0.5)",
+            };
+        } else if (status === "error") {
+            style = {
+                color: "#fff",
+                background: "#d63939",
+                borderRadius: "0.5rem",
+                boxShadow: "0 0 10px rgba(214, 57, 57, 0.5)",
+            };
+        }
+
         Toastify({
             text: message,
             duration: 1500,
@@ -155,28 +202,7 @@
             gravity: "top",
             position: "right",
             stopOnFocus: true,
-            style: {
-                color: "#fff",
-                background: "#d63939",
-                borderRadius: "0.5rem",boxShadow: "0 0 10px rgba(214, 57, 57, 0.5)",
-
-            },
-        }).showToast();
-    }
-
-    function showSuccess(message) {
-        Toastify({
-            text : message,
-            duration: 2000,
-            close: true,
-            gravity: "top",
-            position: "right",
-            stopOnFocus: true,
-            style: {
-                color: "#fff",
-                background: "linear-gradient(to right, #00b09b, #96c93d)",
-                borderRadius: "0.5rem",
-            },
+            style: style,
         }).showToast();
     }
     // Script interaksi file yang sudah disesuaikan dengan ID dropzoneArea
@@ -284,7 +310,7 @@
                             errorMsg = err.responseJSON.error;
                         }
                     }
-                    showError("Gagal memproses file: " + errorMsg, "error");
+                    notify("Gagal memproses file: " + errorMsg, "error");
                 }
             });
         });
@@ -308,10 +334,24 @@
                 success: function(res) {
                     document.getElementById('loading-overlay').classList.add('d-none');
                     $("#previewImportModal").modal("hide");
-                    showSuccess(res.message, "success");
+
+                    // Evaluasi respon dari server
+                    if (res.status === 'warning' && res.error_url) {
+                        notify(res.message + " Mengunduh rincian log error otomatis...", "warning");
+                        let a = document.createElement('a');
+                        a.href = res.error_url;
+                        a.download = res.error_file;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    } else {
+                        notify(res.message, "success");
+                    }
+
                     console.log(res);
                     btnSubmit.html(originalBtnText).prop('disabled', false);
 
+                    // Perbaikan kondisi reload: Jika table tidak ada, reload halaman
                     if (typeof table !== 'undefined') {
                         table.ajax.reload(null, false);
                     } else {
@@ -322,7 +362,7 @@
                     document.getElementById('loading-overlay').classList.add('d-none');
                     btnSubmit.html(originalBtnText).prop('disabled', false);
                     let errMsg = err.responseJSON ? (err.responseJSON.error || err.responseJSON.message) : 'Terjadi kesalahan sistem.';
-                    showError("Gagal mengimport data: " + errMsg, "error");
+                    notify("Gagal mengimport data: " + errMsg, "error");
                 }
             });
         });

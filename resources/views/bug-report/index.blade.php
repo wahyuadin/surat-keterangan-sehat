@@ -11,7 +11,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-12 col-md-10">
-                    <h5 class="card-title">Daftar Bug Report</h5>
+                    <h5 class="card-title">Daftar Tiket / Bug Report</h5>
                     <p style="text-align: justify">Jika ada kritik, saran, atau error pada program, mohon kirim <b>Screenshot</b> yang jelas agar kami bisa segera memperbaikinya. <br>Terimakasih <i class='bx bx-happy-heart-eyes'></i></p>
                 </div>
             </div>
@@ -21,76 +21,49 @@
                         <i class='bx bx-plus'></i>
                     </button>
                 </div>
-                <table id="example" class="table table-striped table-bordered w-100 mt-3">
+               <table id="example" class="table table-striped table-bordered w-100 mt-3">
                     @include('alert')
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Deskripsi</th>
-                            <th>Gambar</th>
+                            <th>Deskripsi Masalah</th>
                             <th>Status</th>
-                            @if (Auth::user()->role == '2')
                             <th>Pelapor</th>
                             <th>Tanggal</th>
                             <th>Action</th>
-                            @endif
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($data as $index => $dataItem)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ Str::upper($dataItem->deskripsi ?? '-') }}</td>
+                            <td>{{ Str::limit($dataItem->deskripsi, 50) ?? '-' }}</td>
                             <td>
-                                @if($dataItem->foto)
-                                <a href="{{ asset('storage/' . $dataItem->foto) }}" target="_blank">
-                                    <img src="{{ asset('storage/' . $dataItem->foto) }}" alt="{{ $dataItem->foto ?? 'img' }}" style="max-width: 100px; max-height: 100px;">
-                                </a>
-                                @else
-                                -
+                                @if($dataItem->status == 'open')
+                                    <span class="badge bg-secondary">Open</span>
+                                @elseif($dataItem->status == 'in_progress')
+                                    <span class="badge bg-primary">In Progress</span>
+                                @elseif($dataItem->status == 'resolved')
+                                    <span class="badge bg-success">Resolved</span>
+                                @elseif($dataItem->status == 'closed')
+                                    <span class="badge bg-dark">Closed</span>
                                 @endif
                             </td>
-
-                            <td>
-                                @if($dataItem->status == 1)
-                                <span class="badge bg-success">Solved</span>
-                                @elseif($dataItem->status == 0)
-                                <span class="badge bg-primary">Progress</span>
-                                @elseif($dataItem->status == 2)
-                                <span class="badge bg-danger">Rejected</span>
-                                @else
-                                <span class="badge bg-secondary">Unknown</span>
-                                @endif
-                            </td>
-                            @if (Auth::user()->role == '2')
-                            <td>
-                                {{ $dataItem->pelapor ?? 'Error' }}
-                            </td>
-                            <td>
-                                {{ $dataItem->created_at ?? 'Error' }}
-                            </td>
+                            <td>{{ $dataItem->pelapor ?? 'Unknown' }}</td>
+                            <td>{{ $dataItem->created_at ? $dataItem->created_at->format('d M Y H:i') : '-' }}</td>
                             <td>
                                 <div class="d-flex gap-1">
-                                    <form action="{{ route('bug-report-accept', $dataItem->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <button type="submit" class="btn btn-sm btn-success">
-                                            <i class='bx bx-check'></i>
-                                        </button>
-                                    </form>
-                                    <form action="{{ route('bug-report-reject', $dataItem->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <button type="submit" class="btn btn-sm btn-warning">
-                                            <i class='bx bx-x'></i>
-                                        </button>
-                                    </form>
+                                    <a href="{{ route('bug-report.show', $dataItem->id) }}" class="btn btn-sm btn-info text-white">
+                                        <i class='bx bx-chat'></i>
+                                    </a>
+
+                                    @if (Auth::user()->role == '2')
                                     <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deletebug{{ $dataItem->id }}">
                                         <i class='bx bx-trash'></i>
                                     </button>
+                                    @endif
                                 </div>
                             </td>
-                            @endif
                         </tr>
                         @endforeach
                     </tbody>

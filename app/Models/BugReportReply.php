@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class BugReport extends Model implements Auditable
+class BugReportReply extends Model implements Auditable
 {
     use HasFactory, SoftDeletes, AuditingAuditable;
     protected $guarded = [];
@@ -18,11 +18,6 @@ class BugReport extends Model implements Auditable
         'deleted',
         'restored',
     ];
-
-    public function replies()
-    {
-        return $this->hasMany(BugReportReply::class);
-    }
 
     public function user()
     {

@@ -14,10 +14,13 @@ return new class extends Migration
         Schema::create('bug_reports', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->string('deskripsi');
+            $table->string('judul')->nullable();
+            $table->text('deskripsi');
             $table->string('pelapor')->nullable();
-            $table->boolean('status')->default(0);
-            $table->string('foto');
+
+            $table->string('status')->default('open');
+
+            $table->string('foto')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
