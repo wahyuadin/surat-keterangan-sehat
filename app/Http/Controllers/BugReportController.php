@@ -64,9 +64,6 @@ class BugReportController extends Controller
         return $this->bug->tambahKomentar($request, $id);
     }
 
-    /**
-     * Update status tiket (Open -> In Progress -> Resolved, dll)
-     */
     public function updateStatus(Request $request, $id)
     {
         $request->validate(['status' => 'required|in:open,in_progress,resolved,closed']);
@@ -99,21 +96,6 @@ class BugReportController extends Controller
 
     public function getReplies(Request $request, $id)
     {
-        $query = BugReportReply::with('user')->where('bug_report_id', $id)->orderBy('id', 'asc');
-        if ($request->has('last_id') && $request->last_id > 0) {
-            $query->where('id', '>', $request->last_id);
-        }
-
-        $replies = $query->get()->map(function ($reply) {
-            return [
-                'id' => $reply->id,
-                'user_id' => $reply->user_id,
-                'nama' => $reply->user->nama ?? 'Unknown',
-                'pesan' => nl2br(e($reply->pesan)),
-                'waktu' => $reply->created_at->format('d M H:i')
-            ];
-        });
-
-        return response()->json($replies);
+        return $this->bug->ambilKomentar($request, $id);
     }
 }

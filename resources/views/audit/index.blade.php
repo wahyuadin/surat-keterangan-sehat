@@ -11,7 +11,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-6 col-md-8">
-                    <h5 class="card-title">Data Daftar Pasient</h5>
+                    <h5 class="card-title">Data Auditable</h5>
                 </div>
             </div>
             <div class="table-responsive mt-3">

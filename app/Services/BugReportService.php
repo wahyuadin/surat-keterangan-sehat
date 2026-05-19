@@ -71,9 +71,7 @@ class BugReportService
     {
         DB::beginTransaction();
         try {
-            $tiket = BugReport::findOrFail($id);
-            $tiket->update(['status' => $statusBaru]);
-
+            BugReport::editData($id, ['status' => $statusBaru]);
             DB::commit();
             toastify()->success("Status tiket diubah menjadi " . strtoupper($statusBaru));
             return redirect()->back();
@@ -118,39 +116,23 @@ class BugReportService
         }
     }
 
-
-    public function accept($id)
+    public function ambilKomentar($request, $id)
     {
-        DB::beginTransaction();
-        try {
-            $agent = BugReport::findOrFail($id);
-            $agent->fill(['status' => 1]);
-            $agent->save();
-
-            DB::commit();
-            toastify()->success('Berhasil Accept.');
-            return redirect()->route('bug-report.index');
-        } catch (\Throwable $th) {
-            toastify()->error('Error, ' . $th);
-            DB::rollback();
-            return redirect()->back();
+        $query = BugReportReply::showDataByReportId($id);
+        if ($request->has('last_id') && $request->last_id > 0) {
+            $query->where('id', '>', $request->last_id);
         }
-    }
 
-    public function reject($id)
-    {
-        DB::beginTransaction();
-        try {
-            $agent = BugReport::findOrFail($id);
-            $agent->fill(['status' => 2]);
-            $agent->save();
-            DB::commit();
-            toastify()->success('Berhasil Reject.');
-            return redirect()->route('bug-report.index');
-        } catch (\Throwable $th) {
-            toastify()->error('Error, ' . $th);
-            DB::rollback();
-            return redirect()->back();
-        }
+        $replies = $query->get()->map(function ($reply) {
+            return [
+                'id' => $reply->id,
+                'user_id' => $reply->user_id,
+                'nama' => $reply->user->nama ?? 'Unknown',
+                'pesan' => nl2br(e($reply->pesan)),
+                'waktu' => $reply->created_at->format('d M H:i')
+            ];
+        });
+
+        return response()->json($replies);
     }
 }

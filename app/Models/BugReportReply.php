@@ -30,6 +30,11 @@ class BugReportReply extends Model implements Auditable
         return $id ? self::where('user_id', $id)->get() : self::latest()->get();
     }
 
+    public static function showDataByReportId($reportId)
+    {
+        return self::where('bug_report_id', $reportId)->with('user')->latest();
+    }
+
     public static function tambahData($data)
     {
         return self::create($data);

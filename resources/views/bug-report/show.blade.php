@@ -90,7 +90,7 @@
 
                 <!-- Form Balas Pesan -->
                 <div class="card-footer bg-light">
-                    @if($bugReport->status == 'closed')
+                    @if($bugReport->status == 'closed' || $bugReport->status == 'resolved')
                         <div class="alert alert-secondary mb-0 text-center">
                             Tiket ini telah ditutup. Anda tidak dapat membalas pesan.
                         </div>
@@ -132,7 +132,7 @@
 
     // Fungsi untuk menarik pesan baru dari server
     function fetchNewMessages() {
-        fetch(`/bug-report/${bugReportId}/replies?last_id=${lastReplyId}`, {
+        fetch(`/report/bug-report/${bugReportId}/replies?last_id=${lastReplyId}`, {
             headers: { 'X-Requested-With': 'XMLHttpRequest' }
         })
         .then(response => response.json())

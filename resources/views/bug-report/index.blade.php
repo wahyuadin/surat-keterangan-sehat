@@ -47,6 +47,8 @@
                                     <span class="badge bg-success">Resolved</span>
                                 @elseif($dataItem->status == 'closed')
                                     <span class="badge bg-dark">Closed</span>
+                                @else
+                                    <span class="badge bg-light text-dark">{{ $dataItem->status }}</span>
                                 @endif
                             </td>
                             <td>{{ $dataItem->pelapor ?? 'Unknown' }}</td>
