@@ -17,12 +17,12 @@
             </div>
             <div class="table-responsive mt-3">
                 <div class="mt-3 mb-4">
-                    <!-- Tombol Add -->
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addpatient">
                         <i class='bx bx-plus'></i>
                     </button>
-
-                    <!-- Tombol Export (Existing) -->
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#importModal">
+                        <i class='bx bx-import'></i>
+                    </button>
                     <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class='bx bx-export'></i>
                     </button>
@@ -30,11 +30,6 @@
                         <li><a class="dropdown-item" href="javascript:void(0)" onclick="printPDF()">Print PDF</a></li>
                         <li><a class="dropdown-item" href="javascript:void(0)" onclick="exportExcel()">Export Excel</a></li>
                     </ul>
-
-                    <!-- TAMBAHAN: Tombol Import -->
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#importModal">
-                        <i class='bx bx-import'></i>
-                    </button>
                 </div>
                 <table id="patientTable" class="table table-striped table-bordered w-100 mt-3">
                     <thead>
