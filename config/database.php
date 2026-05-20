@@ -1,6 +1,5 @@
 <?php
 
-use Redis as PhpRedis;
 use Illuminate\Support\Str;
 
 return [
@@ -126,27 +125,27 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
-            'serializer' => defined('PhpRedis::SERIALIZER_MSGPACK')
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'serializer' => defined('PhpRedis::SERIALIZER_MSGPACK'),
         ],
-
 
         'default' => [
             'url' => env('REDIS_URL'),
             'host' => env('REDIS_HOST', '127.0.0.1'),
-            'username' => env('REDIS_USERNAME'),
-            'password' => env('REDIS_PASSWORD'),
+            'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_DB', '0'),
+            'scheme' => env('REDIS_SCHEME', 'tcp'),
+            'path' => env('REDIS_PATH', ''),
         ],
-
         'cache' => [
             'url' => env('REDIS_URL'),
             'host' => env('REDIS_HOST', '127.0.0.1'),
-            'username' => env('REDIS_USERNAME'),
-            'password' => env('REDIS_PASSWORD'),
+            'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_CACHE_DB', '1'),
+            'scheme' => env('REDIS_SCHEME', 'tcp'),
+            'path' => env('REDIS_PATH', ''),
         ],
 
     ],

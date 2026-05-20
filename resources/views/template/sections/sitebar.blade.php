@@ -97,7 +97,7 @@
             </a>
         </li>
         @endif
-        <li class="menu-item {{ Request::is('bug-report*') ? 'active' : '' }}">
+        <li class="menu-item {{ Request::is('report/bug-report*') ? 'active' : '' }}">
             <a href="{{ route('bug-report.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons fa-solid fa-comments"></i>
                 <div data-i18n="Analytics">Kritik & Saran</div>

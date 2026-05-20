@@ -1,7 +1,13 @@
 <?php
 
+use App\Providers\AppServiceProvider;
+use App\Providers\AuthServiceProvider;
+use App\Providers\EventServiceProvider;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
+use Maatwebsite\Excel\ExcelServiceProvider;
+use Maatwebsite\Excel\Facades\Excel;
 
 return [
 
@@ -17,6 +23,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'version' => env('APP_VERSION', '1.0.0'),
 
     /*
     |--------------------------------------------------------------------------
@@ -73,7 +80,6 @@ return [
     */
 
     'timezone' => 'Asia/Jakarta',
-    'version' => env('APP_VERSION', '1.0.0'),
 
     /*
     |--------------------------------------------------------------------------
@@ -166,12 +172,12 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
+        AppServiceProvider::class,
+        AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
+        EventServiceProvider::class,
+        RouteServiceProvider::class,
+        ExcelServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -187,7 +193,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Excel' => Excel::class,
     ])->toArray(),
 
 ];
