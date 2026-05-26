@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,12 +12,15 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Tagihan extends Model implements Auditable
 {
-    use HasFactory, SoftDeletes, AuditingAuditable;
+    use AuditingAuditable, HasFactory, SoftDeletes;
+
     protected $guarded = [];
+
     protected $casts = [
         'pasien' => 'array',
         'status_tagihan' => 'boolean',
     ];
+
     protected $auditEvents = [
         'created',
         'updated',
@@ -54,6 +58,7 @@ class Tagihan extends Model implements Auditable
         $agent = self::findOrFail($id);
         $agent->fill(['status_tagihan' => 1]);
         $agent->save();
+
         return $agent;
     }
 
@@ -61,6 +66,7 @@ class Tagihan extends Model implements Auditable
     {
         $agent = self::findOrFail($id);
         $agent->delete();
+
         return $agent;
     }
 
@@ -69,19 +75,22 @@ class Tagihan extends Model implements Auditable
         $count = self::withTrashed()->count() + 1;
         $bulan = now()->format('m');
         $tahun = now()->format('Y');
-        return sprintf("%04d/INV/%s/%s", $count, $bulan, $tahun);
+
+        return sprintf('%04d/INV/%s/%s', $count, $bulan, $tahun);
     }
 
     public static function tagihanByauditRole($where, $role)
     {
+
         $model = self::where($where, $role);
         $model->auditEvent = 'Generate Tagihan';
         $model->isCustomEvent = true;
         $model->auditCustomNew = [
-            'tanggal'   => \Carbon\Carbon::now(),
-            'keterangan' => 'User atas nama ' . Auth::user()->nama . ' telah membuat tagihan.',
-            'data'      => $model->latest()->get(),
+            'tanggal' => Carbon::now(),
+            'keterangan' => 'User atas nama '.Auth::user()->nama.' telah membuat tagihan.',
+            'data' => $model->latest()->get(),
         ];
+
         return $model->get();
     }
 }

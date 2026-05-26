@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Tagihan;
 use App\Services\TagihanService;
 use Illuminate\Http\Request;
@@ -16,6 +15,7 @@ class TagihanController extends Controller
     {
         $this->tagihan = $tagihan;
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -29,6 +29,7 @@ class TagihanController extends Controller
         } else {
             $data = Tagihan::showData();
         }
+
         return view('tagihan.index', ['data' => $data]);
     }
 
@@ -46,15 +47,14 @@ class TagihanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tgl_mulai'   => 'required|date',
-            'tgl_sampai'  => 'required|date|after_or_equal:tgl_mulai',
+            'tgl_mulai' => 'required|date',
+            'tgl_sampai' => 'required|date|after_or_equal:tgl_mulai',
             'customer_id' => 'required|exists:customers,id',
-            'clinic_id'   => 'required|exists:clinics,id',
+            'clinic_id' => 'required|exists:clinics,id',
         ]);
 
         return $this->tagihan->tambah($request);
     }
-
 
     /**
      * Display the specified resource.
