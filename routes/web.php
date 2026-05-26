@@ -32,6 +32,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('agent', AgentController::class);
     // end master
     Route::resource('surat', SuratGeneratorController::class);
+    Route::prefix('surat-blangko')->group(function () {
+        Route::get('pdf', [SuratGeneratorController::class, 'suratBlangkoPdf'])->name('surat-blangko-pdf');
+        Route::get('docx', [SuratGeneratorController::class, 'suratBlangkoDocx'])->name('surat-blangko-word');
+    });
     Route::resource('tagihan', TagihanController::class);
     Route::prefix('report')->group(function () {
         Route::resource('bug-report', BugReportController::class);
@@ -40,10 +44,6 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('bug-report/{id}/status', [BugReportController::class, 'updateStatus'])->name('bug-report.update-status');
     });
     Route::get('audit', [Controller::class, 'auditable'])->name('audit');
-    Route::prefix('surat-blangko')->group(function () {
-        Route::get('pdf', [SuratGeneratorController::class, 'suratBlangkoPdf'])->name('surat-blangko-pdf');
-        Route::get('docx', [SuratGeneratorController::class, 'suratBlangkoDocx'])->name('surat-blangko-word');
-    });
     Route::prefix('import')->group(function () {
         Route::prefix('patient')->group(function () {
             Route::get('import/template', [PasienController::class, 'downloadTemplate'])->name('patient.template');

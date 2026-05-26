@@ -103,19 +103,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 mb-3" id="colNoTransaksi">
+                        <div class="col-md-4 mb-3">
                             <label for="no_transaksi" class="form-label">No Transaksi <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <input type="text" id="no_transaksi" name="no_transaksi" class="form-control" readonly placeholder="No Transaksi akan generate otomatis">
                             </div>
                         </div>
 
-                        <div class="col-md-4 mb-3" id="colTglTransaksi">
+
+                        <div class="col-md-4 mb-3">
                             <label for="tgl_transaksi" class="form-label">Tanggal Transaksi <span class="text-danger">*</span></label>
                             <input type="date" name="tgl_transaksi" class="form-control" value="{{ now()->format('Y-m-d') }}" readonly required>
                         </div>
-
-                        <div class="col-md-4 mb-3" id="colSuhu">
+                        <div class="col-md-4 mb-3">
                             <label for="suhu" class="form-label">Suhu <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <input type="text" name="suhu" class="form-control" placeholder="Masukkan Suhu" value="{{ old('suhu') }}" required>
@@ -123,102 +123,110 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-check mb-3">
+                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="checkDefault">
                         <label class="form-check-label" for="checkDefault">
-                            Sembunyikan form lainnya </label>
+                            Tampilkan form lainnya
+                        </label>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="tinggi_badan" class="form-label">Tinggi Badan <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input type="number" name="tinggi_badan" class="form-control" placeholder="Masukkan Tinggi Badan" value="{{ old('tinggi_badan') }}" required>
+                                <span class="input-group-text">cm</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="berat_badan" class="form-label">Berat Badan <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input type="number" name="berat_badan" class="form-control" placeholder="Masukkan Berat Badan" value="{{ old('berat_badan') }}" required>
+                                <span class="input-group-text">kg</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="tensi" class="form-label">Tensi <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input type="number" id="tensi_sistolik" class="form-control" placeholder="Sistolik" value="{{ old('tensi_sistolik') }}" required>
+                                <span class="input-group-text">/</span>
+                                <input type="number" id="tensi_diastolik" class="form-control" placeholder="Diastolik" value="{{ old('tensi_diastolik') }}" required>
+                                <span class="input-group-text">mmHg</span>
+                            </div>
+
+                            <!-- hasil gabungan -->
+                            <input type="text" name="tensi" id="sistolikdiastolik" class="form-control mt-2" value="{{ old('tensi') }}" hidden>
+                        </div>
                     </div>
 
-                    <div id="optionalFields">
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label for="tinggi_badan" class="form-label">Tinggi Badan <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <input type="number" name="tinggi_badan" class="form-control" placeholder="Masukkan Tinggi Badan" value="{{ old('tinggi_badan') }}" required>
-                                    <span class="input-group-text">cm</span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <label for="berat_badan" class="form-label">Berat Badan <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <input type="number" name="berat_badan" class="form-control" placeholder="Masukkan Berat Badan" value="{{ old('berat_badan') }}" required>
-                                    <span class="input-group-text">kg</span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <label for="tensi" class="form-label">Tensi <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <input type="number" id="tensi_sistolik" class="form-control" placeholder="Sistolik" value="{{ old('tensi_sistolik') }}" required>
-                                    <span class="input-group-text">/</span>
-                                    <input type="number" id="tensi_diastolik" class="form-control" placeholder="Diastolik" value="{{ old('tensi_diastolik') }}" required>
-                                    <span class="input-group-text">mmHg</span>
-                                </div>
-                                <input type="text" name="tensi" id="sistolikdiastolik" class="form-control mt-2" value="{{ old('tensi') }}" hidden>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="saturnasi" class="form-label">Saturasi</label>
+                            <input type="number" name="saturnasi" class="form-control" placeholder="Masukkan Saturnasi" value="{{ old('saturnasi') }}">
+                            <small><i>*Jika tidak diperlukan, tidak perlu diisi.</i></small>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="visus" class="form-label">Visus</label>
+                            <input type="text" name="visus" class="form-control" placeholder="Masukan Visus" value="{{ old('visus') }}">
+                            <small><i>*Jika tidak diperlukan, tidak perlu diisi.</i></small>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label for="saturnasi" class="form-label">Saturasi</label>
-                                <input type="number" name="saturnasi" class="form-control" placeholder="Masukkan Saturnasi" value="{{ old('saturnasi') }}">
-                                <small><i>*Jika tidak diperlukan, tidak perlu diisi.</i></small>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="visus" class="form-label">Visus</label>
-                                <input type="text" name="visus" class="form-control" placeholder="Masukan Visus" value="{{ old('visus') }}">
-                                <small><i>*Jika tidak diperlukan, tidak perlu diisi.</i></small>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="denyutnadi" class="form-label">Denyut Nadi <span class="text-danger">*</span></label>
-                                <input type="number" name="denyutnadi" class="form-control" placeholder="Masukkan Denyut Nadi" value="{{ old('denyutnadi') }}" required>
-                            </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="denyutnadi" class="form-label">Denyut Nadi <span class="text-danger">*</span></label>
+                            <input type="number" name="denyutnadi" class="form-control" placeholder="Masukkan Denyut Nadi" value="{{ old('denyutnadi') }}" required>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-3 mb-3">
-                                <label class="form-check-label" for="buta_warna">Buta Warna <span class="text-danger">*</span></label>
-                                <select name="buta_warna" class="form-select">
-                                    <option selected disabled>== Pilih Salah Satu ==</option>
-                                    <option value="1">Ya</option>
-                                    <option value="0">Tidak</option>
-                                    <option value="2">-</option>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label class="form-check-label" for="buta_warna">
+                                Buta Warna <span class="text-danger">*</span>
+                            </label>
+                            <select name="buta_warna" class="form-select">
+                                <option selected disabled>== Pilih Salah Satu ==</option>
+                                <option value="1">Ya</option>
+                                <option value="0">Tidak</option>
+                                <option value="2">-</option>
+                            </select>
+                        </div>
 
-                            <div class="col-md-3 mb-3">
-                                <label class="form-check-label" for="pendengaran">Pendengaran <span class="text-danger">*</span></label>
-                                <select name="pendengaran" class="form-select">
-                                    <option selected disabled>== Pilih Salah Satu ==</option>
-                                    <option value="1">Respon</option>
-                                    <option value="0">Tidak Respon</option>
-                                    <option value="2">-</option>
-                                </select>
-                            </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-check-label" for="pendengaran">
+                                Pendengaran <span class="text-danger">*</span>
+                            </label>
+                            <select name="pendengaran" class="form-select">
+                                <option selected disabled>== Pilih Salah Satu ==</option>
+                                <option value="1">Respon</option>
+                                <option value="0">Tidak Respon</option>
+                                <option value="2">-</option>
+                            </select>
+                        </div>
 
-                            <div class="col-md-3 mb-3">
-                                <label class="form-check-label" for="status_kesehatan">Status Kesehatan <span class="text-danger">*</span></label>
-                                <select name="status_kesehatan" class="form-select">
-                                    <option selected disabled>== Pilih Salah Satu ==</option>
-                                    <option value="1">Sehat</option>
-                                    <option value="0">Tidak Sehat</option>
-                                    <option value="2">-</option>
-                                </select>
-                            </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-check-label" for="status_kesehatan">
+                                Status Kesehatan <span class="text-danger">*</span>
+                            </label>
+                            <select name="status_kesehatan" class="form-select">
+                                <option selected disabled>== Pilih Salah Satu ==</option>
+                                <option value="1">Sehat</option>
+                                <option value="0">Tidak Sehat</option>
+                                <option value="2">-</option>
+                            </select>
+                        </div>
 
-                            <div class="col-md-3 mb-3">
-                                <label class="form-check-label" for="gol_darah">Golongan Darah <span class="text-danger">*</span></label>
-                                <select name="gol_darah" class="form-select">
-                                    <option selected disabled>== Pilih Salah Satu ==</option>
-                                    <option value="A">A</option>
-                                    <option value="B">B</option>
-                                    <option value="O">O</option>
-                                    <option value="AB">AB</option>
-                                    <option value="-">-</option>
-                                </select>
-                            </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-check-label" for="gol_darah">
+                                Golongan Darah <span class="text-danger">*</span>
+                            </label>
+                            <select name="gol_darah" class="form-select">
+                                <option selected disabled>== Pilih Salah Satu ==</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="O">O</option>
+                                <option value="AB">AB</option>
+                                <option value="-">-</option>
+                            </select>
                         </div>
                     </div>
 
@@ -364,113 +372,89 @@
 
     sistolikInput.addEventListener('input', updateTensi);
     diastolikInput.addEventListener('input', updateTensi);
-    // Logic untuk checkbox tampilkan/sembunyikan form
-    $('#checkDefault').on('change', function() {
-        if ($(this).is(':checked')) {
-            // Sembunyikan form Suhu dan kolom opsional lainnya
-            $('#colSuhu').hide();
-            $('#optionalFields').hide();
-
-            // Ubah grid No Transaksi dan Tgl Transaksi menjadi col-md-6
-            $('#colNoTransaksi').removeClass('col-md-4').addClass('col-md-6');
-            $('#colTglTransaksi').removeClass('col-md-4').addClass('col-md-6');
-
-            // PENTING: Hilangkan atribut required agar form bisa disubmit meskipun kolom disembunyikan
-            $('#colSuhu input, #optionalFields input, #optionalFields select').removeAttr('required');
-        } else {
-            // Tampilkan kembali form Suhu dan kolom opsional lainnya
-            $('#colSuhu').show();
-            $('#optionalFields').show();
-
-            // Kembalikan grid menjadi col-md-4
-            $('#colNoTransaksi').removeClass('col-md-6').addClass('col-md-4');
-            $('#colTglTransaksi').removeClass('col-md-6').addClass('col-md-4');
-
-            // Kembalikan atribut required untuk field wajib
-            $('input[name="suhu"], input[name="tinggi_badan"], input[name="berat_badan"], #tensi_sistolik, #tensi_diastolik, input[name="denyutnadi"]').prop('required', true);
-        }
-    });
     // panggil pas ganti select
     $(document).ready(function() {
+        $(document).ready(function() {
 
-        $('#patient_id').select2({
-            theme: "bootstrap-5"
-            , dropdownParent: $('#addsuratGenerator')
-            , placeholder: "Cari pasien..."
-            , minimumInputLength: 0
-            , width: '100%'
-            , ajax: {
-                url: "{{ route('patients.search') }}"
-                , dataType: 'json'
-                , delay: 250
-                , data: function(params) {
-                    return {
-                        q: params.term || ''
-                    };
-                }
-                , processResults: function(data) {
-                    return {
-                        results: data.results
-                    };
-                }
-            }
-        });
-
-        $('#patient_id').on('select2:select', function(e) {
-            let data = e.params.data;
-            let patientId = data.id;
-
-            // set gender otomatis
-            if (data.jenis_kelamin == 1) {
-                $('#is_gender').val('L');
-            } else if (data.jenis_kelamin == 0) {
-                $('#is_gender').val('P');
-            }
-
-            toggleGender();
-
-            // disable tombol simpan dulu
-            $('#btnSimpan').prop('disabled', true);
-
-            // generate nomor transaksi
-            if (patientId) {
-
-                $('#no_transaksi').val('Generating...');
-
-                $.ajax({
-                    url: "{{ route('surat.generateNo', ':id') }}".replace(':id', patientId)
-                    , type: 'GET',
-
-                    success: function(response) {
-
-                        $('#no_transaksi').val(response.no_transaksi);
-
-                        if (response.no_transaksi) {
-                            $('#btnSimpan').prop('disabled', false);
-                        }
-
-                    },
-
-                    error: function() {
-
-                        $('#no_transaksi').val('');
-                        $('#btnSimpan').prop('disabled', true);
-
-                        alert('Gagal generate nomor transaksi');
-
+            $('#patient_id').select2({
+                theme: "bootstrap-5"
+                , dropdownParent: $('#addsuratGenerator')
+                , placeholder: "Cari pasien..."
+                , minimumInputLength: 0
+                , width: '100%'
+                , ajax: {
+                    url: "{{ route('patients.search') }}"
+                    , dataType: 'json'
+                    , delay: 250
+                    , data: function(params) {
+                        return {
+                            q: params.term || ''
+                        };
                     }
-                });
+                    , processResults: function(data) {
+                        return {
+                            results: data.results
+                        };
+                    }
+                }
+            });
 
-            }
+            $('#patient_id').on('select2:select', function(e) {
+                let data = e.params.data;
+                let patientId = data.id;
 
-        });
+                // set gender otomatis
+                if (data.jenis_kelamin == 1) {
+                    $('#is_gender').val('L');
+                } else if (data.jenis_kelamin == 0) {
+                    $('#is_gender').val('P');
+                }
 
-        $('#is_agent').on('change', function() {
-            toggleAgent();
-        });
+                toggleGender();
 
-        $('#is_gender').on('change', function() {
-            toggleGender();
+                // disable tombol simpan dulu
+                $('#btnSimpan').prop('disabled', true);
+
+                // generate nomor transaksi
+                if (patientId) {
+
+                    $('#no_transaksi').val('Generating...');
+
+                    $.ajax({
+                        url: "{{ route('surat.generateNo', ':id') }}".replace(':id', patientId)
+                        , type: 'GET',
+
+                        success: function(response) {
+
+                            $('#no_transaksi').val(response.no_transaksi);
+
+                            if (response.no_transaksi) {
+                                $('#btnSimpan').prop('disabled', false);
+                            }
+
+                        },
+
+                        error: function() {
+
+                            $('#no_transaksi').val('');
+                            $('#btnSimpan').prop('disabled', true);
+
+                            alert('Gagal generate nomor transaksi');
+
+                        }
+                    });
+
+                }
+
+            });
+
+            $('#is_agent').on('change', function() {
+                toggleAgent();
+            });
+
+            $('#is_gender').on('change', function() {
+                toggleGender();
+            });
         });
     });
 

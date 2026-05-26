@@ -157,9 +157,9 @@ class SuratGeneratorService
             // return redirect()->route('surat.index');
         } catch (\Throwable $th) {
             toastify()->error('Error, '.$th);
+            DB::rollback();
 
             return redirect()->back();
-            DB::rollback();
         }
     }
 
@@ -223,7 +223,7 @@ class SuratGeneratorService
 
     public function suratBlangkoPdf()
     {
-        return pdf::loadView('surat-generator.blangko', ['data' => Clinic::where('id', Auth::user()->clinic_id)->first()])->stream('SKD_blangko.pdf');
+        return Pdf::loadView('surat-generator.blangko', ['data' => Clinic::where('id', Auth::user()->clinic_id)->first()])->stream('SKD_blangko.pdf');
     }
 
     public function suratBlangkoDocx()

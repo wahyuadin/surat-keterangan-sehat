@@ -92,6 +92,8 @@ class SuratGeneratorController extends Controller
 
     public function resultData(Request $request)
     {
+        // dd($this->suratGenerator->resultData($request));
+
         return $this->suratGenerator->resultData($request);
     }
 

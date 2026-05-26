@@ -296,11 +296,11 @@
                                 </div>
 
                                 {{-- Status Pembayaran - Tampilkan jika user role adalah 2 (sesuai logika asli) --}}
-                                @if(Auth::user()->role == 2)
+                                @if($surat->is_bayar == 0 || Auth::user()->role == 2)
                                 <h6 class="border-bottom pb-2 my-3">Pembayaran</h6>
                                 <div class="col-md-12">
                                     <label for="is_bayar" class="form-label">Status Pembayaran</label>
-                                    <select class="form-select" id="is_bayar" name="is_bayar" {{ $surat->is_bayar ? 'disabled' : '' }}>
+                                    <select class="form-select" id="is_bayar" name="is_bayar">
                                         <option value="0" {{ $surat->is_bayar == 0 ? 'selected' : '' }}>Menunggu Transaksi</option>
                                         <option value="1" {{ $surat->is_bayar == 1 ? 'selected' : '' }}>Lunas</option>
                                     </select>

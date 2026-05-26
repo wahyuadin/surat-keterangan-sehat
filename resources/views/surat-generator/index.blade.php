@@ -93,6 +93,7 @@
                         <tr>
                             <th>No</th>
                             <th>Tanggal Transaksi</th>
+                            <th>Status</th>
                             <th>No Transaksi</th>
                             <th>Agent</th>
                             <th>No KTP</th>
@@ -120,7 +121,7 @@
                             <th>Foto</th>
                             <th>Asal Perusahaan</th>
                             <th>Status Kehamilan</th>
-                            <th>Status Transaksi</th>
+                            <th>Stautus Transaksi</th>
                             @if (Auth::user()->role == '2')
                             <th>Tarif</th>
                             @endif
@@ -195,6 +196,16 @@
     let columns = [
         { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
         { data: 'tgl_transaksi', name: 'transaksis.tgl_transaksi' },
+        {
+            data: 'status',
+            name: 'transaksis.status',
+            render: data => {
+                if (data == 0 || data == '0') return '<span class="badge bg-warning">Pendaftaran</span>';
+                if (data == 1 || data == '1') return '<span class="badge bg-success">Pelayanan</span>';
+                if (data == 1 || data == '1') return '<span class="badge bg-secondary">SELESAI</span>';
+                return `<span class="badge bg-secondary">${data ? data.toString().toUpperCase() : '-'}</span>`;
+            }
+        },
         { data: 'no_transaksi', name: 'transaksis.no_transaksi' },
         { data: 'agent.nama_agent', name: 'agent.nama_agent', render: data => data ? data.toUpperCase() : '-' },
         { data: 'patient.no_ktp', name: 'patient.no_ktp' },
